@@ -39,6 +39,7 @@
 		}
 		.timer {
 			position: absolute;
+			z-index: 1;
 			top: 788px;
 			font-size: 70px;
 			font-weight: 700;
@@ -48,6 +49,8 @@
 			font-variant-numeric: tabular-nums;
 			opacity: 0;
 			transition: opacity 0.3s 1s;
+			text-shadow: 0 0 17px #000000;
+			filter: drop-shadow(0 0 17px #000000);
 		}
 		.timer.is-active {
 			opacity: 1;
