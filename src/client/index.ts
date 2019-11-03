@@ -24,7 +24,9 @@
 	})
 
 	function init() {
-		webSocket = new WebSocket(`ws://${location.host}/client`)
+		webSocket = new WebSocket(
+			`${location.protocol.replace('http', 'ws')}//${location.host}/client`
+		)
 
 		webSocket.onclose = function() {
 			init()

@@ -10,7 +10,9 @@ function formatTimer(countdown: number) {
 	const $reflectors = document.querySelector('.js-reflectors') as HTMLElement
 
 	function init() {
-		webSocket = new WebSocket(`ws://${location.host}/screen`)
+		webSocket = new WebSocket(
+			`${location.protocol.replace('http', 'ws')}//${location.host}/screen`
+		)
 
 		webSocket.onclose = function() {
 			init()

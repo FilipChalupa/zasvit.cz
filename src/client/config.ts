@@ -2,7 +2,9 @@
 	let webSocket: WebSocket
 
 	function init() {
-		webSocket = new WebSocket(`ws://${location.host}/config`)
+		webSocket = new WebSocket(
+			`${location.protocol.replace('http', 'ws')}//${location.host}/config`
+		)
 
 		webSocket.onclose = function() {
 			init()
