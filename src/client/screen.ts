@@ -27,6 +27,9 @@ function formatTimer(countdown: number) {
 		function addReflector(id: number) {
 			const $reflector = document.createElement('div')
 			$reflectors.appendChild($reflector)
+			requestAnimationFrame(() => {
+				$reflector.classList.add('is-active')
+			})
 			reflectors[id] = {
 				id,
 				$reflector,
@@ -44,6 +47,11 @@ function formatTimer(countdown: number) {
 			reflectors[id].$reflector.style.transform = `translate(${x}px, ${y}px)`
 		}
 		function removeReflector(id: number) {
+			const { $reflector } = reflectors[id]
+			$reflector.classList.remove('is-active')
+			setTimeout(() => {
+				$reflector.remove()
+			}, 10000)
 			delete reflectors[id]
 		}
 
