@@ -2,6 +2,7 @@ import * as express from 'express'
 import * as http from 'http'
 import * as WebSocket from 'ws'
 import * as url from 'url'
+import { Screen } from './Screen'
 
 console.log('Starting server')
 
@@ -16,21 +17,10 @@ const wsClient = new WebSocket.Server({ noServer: true })
 const wsScreen = new WebSocket.Server({ noServer: true })
 const wsConfig = new WebSocket.Server({ noServer: true })
 
-wsClient.on('connection', (ws: WebSocket) => {
-	console.log('client connection')
-})
-
-wsScreen.on('connection', (ws: WebSocket) => {
-	console.log('screen connection')
-})
-
-wsConfig.on('connection', (ws: WebSocket) => {
-	console.log('config connection')
-})
+new Screen(wsClient, wsScreen, wsConfig)
 
 server.on('upgrade', (request, socket, head) => {
 	const pathname = url.parse(request.url).pathname
-	console.log('upgrade')
 
 	if (pathname === '/client') {
 		wsClient.handleUpgrade(request, socket, head, function done(ws) {
