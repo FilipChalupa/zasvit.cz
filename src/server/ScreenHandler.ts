@@ -3,7 +3,7 @@ import * as WebSocket from 'ws'
 export class ScreenHandler {
 	protected wsServer: WebSocket.Server
 	protected reflectors: {
-		[key: string]: {
+		[key: number]: {
 			id: number
 			x: number
 			y: number
@@ -26,6 +26,10 @@ export class ScreenHandler {
 	}
 
 	public removeReflector(id: number) {
+		this.broadcast({
+			command: 'reflector-remove',
+			value: id,
+		})
 		delete this.reflectors[id]
 	}
 
@@ -37,7 +41,7 @@ export class ScreenHandler {
 		this.reflectors[id].x = x
 		this.reflectors[id].y = y
 		this.broadcast({
-			command: 'position',
+			command: 'reflector-position',
 			value: [id, x, y].join(':'),
 		})
 	}

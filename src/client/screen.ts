@@ -6,7 +6,8 @@ function formatTimer(countdown: number) {
 
 ;(function() {
 	let webSocket: WebSocket
-	const timer = document.querySelector('.js-timer') as HTMLElement
+	const $timer = document.querySelector('.js-timer') as HTMLElement
+	const $reflectors = document.querySelector('.js-reflectors') as HTMLElement
 
 	function init() {
 		webSocket = new WebSocket(`ws://${location.host}/screen`)
@@ -15,15 +16,49 @@ function formatTimer(countdown: number) {
 			init()
 		}
 
+		const reflectors: {
+			[key: number]: {
+				id: number
+				$reflector: HTMLDivElement
+				x: number
+				y: number
+			}
+		} = {}
+		function addReflector(id: number) {
+			const $reflector = document.createElement('div')
+			$reflectors.appendChild($reflector)
+			reflectors[id] = {
+				id,
+				$reflector,
+				x: 0,
+				y: 0,
+			}
+		}
+		function updateReflector(id: number, x: number, y: number) {
+			if (!(id in reflectors)) {
+				addReflector(id)
+			}
+
+			reflectors[id].x = x
+			reflectors[id].y = y
+			reflectors[id].$reflector.style.transform = `translate(${x}px, ${y}px)`
+		}
+		function removeReflector(id: number) {
+			delete reflectors[id]
+		}
+
 		webSocket.onmessage = (event) => {
 			const data = JSON.parse(event.data)
 			switch (data.command) {
 				case 'timer-update':
-					timer.innerText = formatTimer(data.value)
+					$timer.innerText = formatTimer(data.value)
 					break
-				case 'position':
+				case 'reflector-position':
 					const [id, x, y] = data.value.split(':')
-					console.log(id, x, y)
+					updateReflector(id, x, y)
+					break
+				case 'reflector-remove':
+					removeReflector(data.value)
 					break
 			}
 		}

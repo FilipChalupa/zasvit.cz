@@ -10,14 +10,16 @@ export class ClientHandler {
 
 			ws.on('message', (message) => {
 				const [command, ...value] = message.toString().split(':')
-				console.log(message)
 				switch (command) {
 					case 'p':
 						const [x, y] = value.map((k) => parseInt(k, 10))
-						console.log(id, 'update position', x, y)
 						screenHandler.updateReflector(id, x, y)
 						break
 				}
+			})
+
+			ws.on('close', () => {
+				screenHandler.removeReflector(id)
 			})
 		})
 	}
