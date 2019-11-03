@@ -51,6 +51,7 @@ function formatTimer(countdown: number) {
 			const data = JSON.parse(event.data)
 			switch (data.command) {
 				case 'timer-update':
+					$timer.classList.toggle('is-active', data.value > 0)
 					$timer.innerText = formatTimer(data.value)
 					break
 				case 'reflector-position':
