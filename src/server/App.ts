@@ -2,11 +2,13 @@ import * as WebSocket from 'ws'
 import { Countdown } from './Countdown'
 import { ConfigHandler } from './ConfigHandler'
 import { ScreenHandler } from './ScreenHandler'
+import { ClientHandler } from './ClientHandler'
 
 export class App {
 	protected countdown: Countdown
 	protected configHandler: ConfigHandler
 	protected screenHandler: ScreenHandler
+	protected clientHandler: ClientHandler
 
 	constructor(
 		wsClient: WebSocket.Server,
@@ -16,6 +18,7 @@ export class App {
 		this.countdown = new Countdown(this.onCountdownUpdate)
 		this.configHandler = new ConfigHandler(wsConfig, this.countdown)
 		this.screenHandler = new ScreenHandler(wsScreen)
+		this.clientHandler = new ClientHandler(wsClient, this.screenHandler)
 	}
 
 	protected onCountdownUpdate = (countdown: number) => {

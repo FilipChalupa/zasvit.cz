@@ -21,6 +21,10 @@ function formatTimer(countdown: number) {
 				case 'timer-update':
 					timer.innerText = formatTimer(data.value)
 					break
+				case 'position':
+					const [id, x, y] = data.value.split(':')
+					console.log(id, x, y)
+					break
 			}
 		}
 	}

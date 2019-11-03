@@ -2,6 +2,13 @@ import * as WebSocket from 'ws'
 
 export class ScreenHandler {
 	protected wsServer: WebSocket.Server
+	protected reflectors: {
+		[key: string]: {
+			id: number
+			x: number
+			y: number
+		}
+	} = {}
 
 	constructor(wsServer: WebSocket.Server) {
 		this.wsServer = wsServer
@@ -12,17 +19,46 @@ export class ScreenHandler {
 	}
 
 	public updateCountdown(countdown: number) {
+		this.broadcast({
+			command: 'timer-update',
+			value: countdown,
+		})
+	}
+
+	public removeReflector(id: number) {
+		delete this.reflectors[id]
+	}
+
+	public updateReflector(id: number, x: number, y: number) {
+		if (!(id in this.reflectors)) {
+			this.addReflector(id)
+		}
+
+		this.reflectors[id].x = x
+		this.reflectors[id].y = y
+		this.broadcast({
+			command: 'position',
+			value: [id, x, y].join(':'),
+		})
+	}
+
+	protected addReflector(id: number) {
+		this.reflectors[id] = {
+			id,
+			x: 0,
+			y: 0,
+		}
+	}
+
+	protected broadcast(data: any) {
 		this.wsServer.clients.forEach((client) => {
 			if (client.readyState === WebSocket.OPEN) {
-				this.sendData(client, {
-					command: 'timer-update',
-					value: countdown,
-				})
+				this.sendData(client, data)
 			}
 		})
 	}
 
-	protected sendData(client: WebSocket, data: object) {
+	protected sendData(client: WebSocket, data: any) {
 		client.send(JSON.stringify(data))
 	}
 }
