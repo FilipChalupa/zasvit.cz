@@ -23,6 +23,5 @@ export class App {
 
 	protected onCountdownUpdate = (countdown: number) => {
 		this.screenHandler.updateCountdown(countdown)
-		console.log('c', countdown)
 	}
 }
