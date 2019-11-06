@@ -4,11 +4,14 @@
 	const $reflector = document.querySelector('.js-reflector') as HTMLElement
 
 	function onMove(event: PointerEvent) {
-		const [x, y] = [event.clientX, event.clientY]
+		const [x, y] = [
+			event.clientX - window.innerWidth / 2,
+			event.clientY - window.innerHeight / 2,
+		]
 		$reflector.style.transform = `translate(${x}px, ${y}px)`
 		send({
 			command: 'p',
-			value: [x, y],
+			value: [x + 600, y + 960],
 		})
 	}
 
