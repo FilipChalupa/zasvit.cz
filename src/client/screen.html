@@ -103,13 +103,30 @@
 		.sponsors-last {
 			display: flex;
 			justify-content: space-between;
-			padding: 0 0.5em;
 		}
 		.sponsors-first {
 			width: 447px;
 		}
 		.sponsors-last {
 			width: 455px;
+		}
+		.sponsor-dash {
+			margin: 0 20px;
+			height: 7px;
+			background-color: currentColor;
+			flex-grow: 1;
+			align-self: center;
+		}
+		.sponsors-first .sponsor-dash:first-child,
+		.sponsors-last .sponsor-dash:first-child {
+			margin-left: 0;
+		}
+		.sponsors-first .sponsor-dash:last-child,
+		.sponsors-last .sponsor-dash:last-child {
+			margin-right: 0;
+		}
+		.sponsor {
+			flex-shrink: 0;
 		}
 		.involved {
 			position: absolute;
@@ -137,7 +154,7 @@
 		}
 		.involved-in {
 			width: fit-content;
-			padding-left: 170%;
+			padding-left: 100%;
 			animation: involved-in-scroll linear infinite var(--involved-duration);
 		}
 		.involved-content {
@@ -187,12 +204,18 @@
 			<div class="js-reflectors reflectors"></div>
 			<div class="sponsors">
 				<div class="sponsors-first">
+					<div class="sponsor-dash"></div>
 					<div class="sponsor">Město Hořice</div>
-					<div class="sponsor">FIT ČVUT</div>
+					<div class="sponsor-dash"></div>
+					<div class="sponsor">MK ČR</div>
+					<div class="sponsor-dash"></div>
 				</div>
 				<div class="sponsors-last">
-					<div class="sponsor">MK ČR</div>
+					<div class="sponsor-dash"></div>
+					<div class="sponsor">FIT ČVUT</div>
+					<div class="sponsor-dash"></div>
 					<div class="sponsor">Unie ČPaMU</div>
+					<div class="sponsor-dash"></div>
 				</div>
 			</div>
 			<div class="involved">
