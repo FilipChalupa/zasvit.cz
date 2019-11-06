@@ -136,7 +136,7 @@
 		}
 		.involved-in {
 			width: fit-content;
-			padding-left: 150%;
+			padding-left: 250%;
 			animation: involved-in-scroll linear infinite 40s;
 		}
 		.involved-content {
@@ -150,11 +150,31 @@
 			text-align: center;
 			font-size: 35px;
 		}
+		.camera {
+			position: absolute;
+			top: 1540px;
+			left: 142px;
+			right: 151px;
+			display: flex;
+			justify-content: space-between;
+			font-size: 18px;
+		}
+		.camera-first,
+		.camera-last {
+			text-align: center;
+		}
+		.camera img {
+			margin-top: 0.5em;
+		}
+		.camera-last {
+			padding-top: 4px;
+		}
 
 		.timer,
 		.sponsors,
 		.involved-content,
-		.entrance {
+		.entrance,
+		.camera {
 			z-index: 1;
 			text-shadow: 0 0 17px #000000;
 			filter: drop-shadow(0 0 17px #000000);
@@ -189,6 +209,18 @@
 			</div>
 			<div class="entrance">
 				www.rosvithorice.cz
+			</div>
+			<div class="camera">
+				<div class="camera-first">
+					NO FLASH
+					<br />
+					<img src="./camera.png" width="70" height="70" alt="" />
+				</div>
+				<div class="camera-last">
+					BEZ BLESKU
+					<br />
+					<img src="./camera.png" width="70" height="70" alt="" />
+				</div>
 			</div>
 		</div>
 	</body>
