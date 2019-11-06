@@ -2,7 +2,11 @@ import * as WebSocket from 'ws'
 import { Countdown } from './Countdown'
 
 export class ConfigHandler {
-	constructor(wsServer: WebSocket.Server, countdown: Countdown) {
+	constructor(
+		wsServer: WebSocket.Server,
+		countdown: Countdown,
+		updateInvolvedDuration: (duration: number) => void
+	) {
 		wsServer.on('connection', (ws: WebSocket) => {
 			ws.on('message', (message) => {
 				const data = JSON.parse(message.toString())
@@ -18,6 +22,9 @@ export class ConfigHandler {
 						break
 					case 'timer-stop':
 						countdown.stop()
+						break
+					case 'involved-duration':
+						updateInvolvedDuration(data.value)
 						break
 				}
 			})

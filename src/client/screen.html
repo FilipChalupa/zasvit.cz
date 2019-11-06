@@ -9,6 +9,7 @@
 			margin: 0;
 			color: #ffffff;
 			background-color: #000000;
+			--involved-duration: 40s;
 		}
 		* {
 			font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
@@ -137,7 +138,7 @@
 		.involved-in {
 			width: fit-content;
 			padding-left: 250%;
-			animation: involved-in-scroll linear infinite 40s;
+			animation: involved-in-scroll linear infinite var(--involved-duration);
 		}
 		.involved-content {
 			position: relative;

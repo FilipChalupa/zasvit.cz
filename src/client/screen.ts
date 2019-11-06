@@ -1,13 +1,14 @@
-function formatTimer(countdown: number) {
-	const seconds = countdown % 60
-	const minutes = Math.floor(countdown / 60)
-	return `${minutes}:${seconds > 9 ? seconds : `0${seconds}`}`
-}
-
 ;(function() {
+	function formatTimer(countdown: number) {
+		const seconds = countdown % 60
+		const minutes = Math.floor(countdown / 60)
+		return `${minutes}:${seconds > 9 ? seconds : `0${seconds}`}`
+	}
+
 	let webSocket: WebSocket
 	const $timer = document.querySelector('.js-timer') as HTMLElement
 	const $reflectors = document.querySelector('.js-reflectors') as HTMLElement
+	const $body = document.querySelector('body') as HTMLElement
 
 	function init() {
 		webSocket = new WebSocket(
@@ -70,6 +71,9 @@ function formatTimer(countdown: number) {
 					break
 				case 'reflector-remove':
 					removeReflector(data.value)
+					break
+				case 'involved-duration':
+					$body.style.setProperty('--involved-duration', `${data.value}s`)
 					break
 			}
 		}

@@ -36,4 +36,19 @@
 				) || 0,
 		})
 	})
+
+	document
+		.querySelector('.js-involved-duration-set')!
+		.addEventListener('click', () => {
+			send({
+				command: 'involved-duration',
+				value:
+					parseInt(
+						(document.querySelector(
+							'.js-involved-duration-input'
+						) as HTMLInputElement).value,
+						10
+					) || 40,
+			})
+		})
 })()

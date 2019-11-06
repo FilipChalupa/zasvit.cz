@@ -16,8 +16,12 @@ export class App {
 		wsConfig: WebSocket.Server
 	) {
 		this.countdown = new Countdown(this.onCountdownUpdate)
-		this.configHandler = new ConfigHandler(wsConfig, this.countdown)
 		this.screenHandler = new ScreenHandler(wsScreen)
+		this.configHandler = new ConfigHandler(
+			wsConfig,
+			this.countdown,
+			this.screenHandler.updateInvolvedDuration
+		)
 		this.clientHandler = new ClientHandler(wsClient, this.screenHandler)
 	}
 

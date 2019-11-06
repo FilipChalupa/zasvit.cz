@@ -18,6 +18,13 @@ export class ScreenHandler {
 		})
 	}
 
+	public updateInvolvedDuration = (duration: number) => {
+		this.broadcast({
+			command: 'involved-duration',
+			value: duration,
+		})
+	}
+
 	public updateCountdown(countdown: number) {
 		this.broadcast({
 			command: 'timer-update',
