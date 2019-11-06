@@ -13,6 +13,11 @@
 		* {
 			font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 		}
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+		}
 		.playground {
 			position: relative;
 			width: 1200px;
@@ -39,7 +44,6 @@
 		}
 		.timer {
 			position: absolute;
-			z-index: 1;
 			top: 788px;
 			font-size: 70px;
 			font-weight: 700;
@@ -49,8 +53,6 @@
 			font-variant-numeric: tabular-nums;
 			opacity: 0;
 			transition: opacity 0.3s 1s;
-			text-shadow: 0 0 17px #000000;
-			filter: drop-shadow(0 0 17px #000000);
 		}
 		.timer.is-active {
 			opacity: 1;
@@ -87,11 +89,95 @@
 			transform: translate(-50%, -50%);
 			background-color: rgba(255, 255, 255, 0.5);
 		}
+		.sponsors {
+			position: absolute;
+			top: 924px;
+			left: 48px;
+			right: 53px;
+			display: flex;
+			justify-content: space-between;
+			font-size: 28px;
+		}
+		.sponsors-first,
+		.sponsors-last {
+			display: flex;
+			justify-content: space-between;
+			padding: 0 0.5em;
+		}
+		.sponsors-first {
+			width: 447px;
+		}
+		.sponsors-last {
+			width: 455px;
+		}
+		.involved {
+			position: absolute;
+			top: 1240px;
+			left: 44px;
+			right: 50px;
+			overflow: hidden;
+			white-space: nowrap;
+			font-size: 20px;
+			clip-path: polygon(
+				-20% -20%,
+				40.9% -20%,
+				40.9% 120%,
+				58.4% 120%,
+				58.4% -20%,
+				120% -20%,
+				120% 120%,
+				-120% 120%
+			);
+		}
+		@keyframes involved-in-scroll {
+			100% {
+				transform: translateX(-100%);
+			}
+		}
+		.involved-in {
+			width: fit-content;
+			padding-left: 150%;
+			animation: involved-in-scroll linear infinite 40s;
+		}
+		.involved-content {
+			position: relative;
+		}
+
+		.timer,
+		.sponsors,
+		.involved-content {
+			z-index: 1;
+			text-shadow: 0 0 17px #000000;
+			filter: drop-shadow(0 0 17px #000000);
+		}
 	</style>
 	<body>
 		<div class="playground">
 			<div class="js-timer timer"></div>
 			<div class="js-reflectors reflectors"></div>
+			<div class="sponsors">
+				<div class="sponsors-first">
+					<div class="sponsor">Město Hořice</div>
+					<div class="sponsor">FIT ČVUT</div>
+				</div>
+				<div class="sponsors-last">
+					<div class="sponsor">MK ČR</div>
+					<div class="sponsor">Unie ČPaMU</div>
+				</div>
+			</div>
+			<div class="involved">
+				<div class="involved-in">
+					<div class="involved-content">
+						Scénář, režie, choreografie, obrazy, multimediální vizualizace:
+						ZDEŇKA ČECHOVÁ - Hudba: MIROSLAV VOBOŘIL - Počítačové efekty,
+						animace, střih v technické spolupráci se studenty ČVUT v Praze:
+						FILIP CHALUPA, LUKÁŠ CHALUPA, LUKÁŠ CHUDÁČEK, ANNA KRUPIČKOVÁ, SÁRA
+						LUŠTĚKOVÁ, TEREZA MACHAČOVÁ, ŠTĚPÁN SÝKORA, MARKO ŠOLTÉS, ZHANNA
+						TURYLO - Projekce a ozvučení: JAROMÍR LANDSMAN - Produkce: ZDEŇKA
+						ČECHOVÁ.
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
