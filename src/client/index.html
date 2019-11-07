@@ -23,10 +23,17 @@
 		* {
 			font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 		}
+		.playground {
+			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+		}
 		.background {
 			position: absolute;
-			top: calc(50vh - 960px);
-			left: calc(50vw - 600px);
+			top: calc(50% - 960px);
+			left: calc(50% - 600px);
 			width: 1200px;
 			height: 1920px;
 		}
@@ -66,9 +73,8 @@
 	</style>
 	<body>
 		<div class="playground js-playground">
-			<div class="background">
-				<div class="reflector js-reflector"></div>
-			</div>
+			<div class="background js-background"></div>
+			<div class="reflector js-reflector"></div>
 		</div>
 	</body>
 </html>
