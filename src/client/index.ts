@@ -11,9 +11,22 @@
 	}
 	const maxSpeed = 4
 	const speedDumper = 50
+	const positionUploadInterval = 1000 / 30
 
 	function range(min: number, value: number, max: number) {
 		return Math.max(min, Math.min(value, max))
+	}
+
+	const throttle = (func: any, limit: number) => {
+		let inThrottle: boolean
+		return function() {
+			const args = arguments
+			if (!inThrottle) {
+				func.apply(null, args)
+				inThrottle = true
+				setTimeout(() => (inThrottle = false), limit)
+			}
+		}
 	}
 
 	function onMove(event: PointerEvent) {
@@ -47,11 +60,24 @@
 		$playground.releasePointerCapture(event.pointerId)
 		direction.x = 0
 		direction.y = 0
+		sendPosition()
 		if (moveTimer) {
-			window.cancelAnimationFrame(moveTimer)
+			cancelAnimationFrame(moveTimer)
 		}
 	})
 	window.addEventListener('resize', move)
+
+	function sendPosition() {
+		send({
+			command: 'p',
+			value: [
+				backgroundSize.width / 2 - centerOffset.x,
+				backgroundSize.height / 2 - centerOffset.y,
+			],
+		})
+	}
+
+	const sendPositionThrottled = throttle(sendPosition, positionUploadInterval)
 
 	function move() {
 		moveTimer = requestAnimationFrame(() => {
@@ -86,13 +112,7 @@
 			$reflector.style.transform = `translate(${backgroundOffset.x -
 				centerOffset.x}px, ${backgroundOffset.y - centerOffset.y}px)`
 
-			send({
-				command: 'p',
-				value: [
-					backgroundSize.width / 2 - centerOffset.x,
-					backgroundSize.height / 2 - centerOffset.y,
-				],
-			})
+			sendPositionThrottled()
 			move()
 		})
 	}

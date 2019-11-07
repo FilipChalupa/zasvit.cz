@@ -19,15 +19,24 @@
 			init()
 		}
 
+		function ease(current: number, target: number) {
+			return current + (target - current) / 20 // @TODO: based on speed
+		}
+
 		const reflectors: {
 			[key: number]: {
 				id: number
 				$reflector: HTMLDivElement
 				x: number
 				y: number
+				rendered: {
+					x: number
+					y: number
+				}
+				loopTimer: number
 			}
 		} = {}
-		function addReflector(id: number) {
+		function addReflector(id: number, x: number, y: number) {
 			const $reflector = document.createElement('div')
 			$reflectors.appendChild($reflector)
 			requestAnimationFrame(() => {
@@ -36,21 +45,38 @@
 			reflectors[id] = {
 				id,
 				$reflector,
-				x: 0,
-				y: 0,
+				x,
+				y,
+				rendered: { x, y },
+				loopTimer: 0,
 			}
+			const loop = () => {
+				reflectors[id].rendered.x = ease(
+					reflectors[id].rendered.x,
+					reflectors[id].x
+				)
+				reflectors[id].rendered.y = ease(
+					reflectors[id].rendered.y,
+					reflectors[id].y
+				)
+				reflectors[
+					id
+				].$reflector.style.transform = `translate(${reflectors[id].rendered.x}px, ${reflectors[id].rendered.y}px)`
+				reflectors[id].loopTimer = requestAnimationFrame(loop)
+			}
+			loop()
 		}
 		function updateReflector(id: number, x: number, y: number) {
 			if (!(id in reflectors)) {
-				addReflector(id)
+				addReflector(id, x, y)
+			} else {
+				reflectors[id].x = x
+				reflectors[id].y = y
 			}
-
-			reflectors[id].x = x
-			reflectors[id].y = y
-			reflectors[id].$reflector.style.transform = `translate(${x}px, ${y}px)`
 		}
 		function removeReflector(id: number) {
 			const { $reflector } = reflectors[id]
+			cancelAnimationFrame(reflectors[id].loopTimer)
 			$reflector.classList.remove('is-active')
 			setTimeout(() => {
 				$reflector.remove()
@@ -67,7 +93,7 @@
 					break
 				case 'reflector-position':
 					const [id, x, y] = data.value.split(':')
-					updateReflector(id, x, y)
+					updateReflector(id, parseInt(x, 10), parseInt(y, 10))
 					break
 				case 'reflector-remove':
 					removeReflector(data.value)
