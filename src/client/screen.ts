@@ -39,9 +39,8 @@
 		function addReflector(id: number, x: number, y: number) {
 			const $reflector = document.createElement('div')
 			$reflectors.appendChild($reflector)
-			requestAnimationFrame(() => {
-				$reflector.classList.add('is-active')
-			})
+			$reflector.clientHeight // Force reflow
+			$reflector.classList.add('is-active')
 			reflectors[id] = {
 				id,
 				$reflector,

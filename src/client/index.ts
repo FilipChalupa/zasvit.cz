@@ -43,7 +43,7 @@
 	}
 
 	const direction = { x: 0, y: 0 }
-	const centerOffset = { x: 0, y: 0 }
+	const centerOffset = { x: 5, y: -600 }
 	const startPosition = { x: 0, y: 0 }
 
 	$playground.addEventListener('pointerdown', (event) => {
