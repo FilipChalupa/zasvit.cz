@@ -79,39 +79,39 @@
 
 	const sendPositionThrottled = throttle(sendPosition, positionUploadInterval)
 
+	function updatePosition() {
+		const viewRect = $playground.getBoundingClientRect()
+		const viewSize = {
+			width: viewRect.width,
+			height: viewRect.height,
+		}
+		const overlapSize = {
+			width: Math.max(0, backgroundSize.width - viewSize.width),
+			height: Math.max(0, backgroundSize.height - viewSize.height),
+		}
+		centerOffset.x = range(
+			-backgroundSize.width / 2,
+			centerOffset.x - direction.x,
+			backgroundSize.width / 2
+		)
+		centerOffset.y = range(
+			-backgroundSize.height / 2,
+			centerOffset.y - direction.y,
+			backgroundSize.height / 2
+		)
+		const backgroundOffset = {
+			x: range(-overlapSize.width / 2, centerOffset.x, overlapSize.width / 2),
+			y: range(-overlapSize.height / 2, centerOffset.y, overlapSize.height / 2),
+		}
+		$background.style.transform = `translate(${backgroundOffset.x}px, ${backgroundOffset.y}px)`
+		$reflector.style.transform = `translate(${backgroundOffset.x -
+			centerOffset.x}px, ${backgroundOffset.y - centerOffset.y}px)`
+	}
+	updatePosition()
+
 	function move() {
 		moveTimer = requestAnimationFrame(() => {
-			const viewRect = $playground.getBoundingClientRect()
-			const viewSize = {
-				width: viewRect.width,
-				height: viewRect.height,
-			}
-			const overlapSize = {
-				width: Math.max(0, backgroundSize.width - viewSize.width),
-				height: Math.max(0, backgroundSize.height - viewSize.height),
-			}
-			centerOffset.x = range(
-				-backgroundSize.width / 2,
-				centerOffset.x - direction.x,
-				backgroundSize.width / 2
-			)
-			centerOffset.y = range(
-				-backgroundSize.height / 2,
-				centerOffset.y - direction.y,
-				backgroundSize.height / 2
-			)
-			const backgroundOffset = {
-				x: range(-overlapSize.width / 2, centerOffset.x, overlapSize.width / 2),
-				y: range(
-					-overlapSize.height / 2,
-					centerOffset.y,
-					overlapSize.height / 2
-				),
-			}
-			$background.style.transform = `translate(${backgroundOffset.x}px, ${backgroundOffset.y}px)`
-			$reflector.style.transform = `translate(${backgroundOffset.x -
-				centerOffset.x}px, ${backgroundOffset.y - centerOffset.y}px)`
-
+			updatePosition()
 			sendPositionThrottled()
 			move()
 		})
