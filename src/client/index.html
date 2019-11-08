@@ -82,9 +82,30 @@
 			transform: translate(-50%, -50%);
 			background: radial-gradient(currentColor -1%, transparent 70%);
 		}
+		.instructions {
+			position: absolute;
+			bottom: 10%;
+			left: 0;
+			right: 0;
+			padding: 1em;
+			text-align: center;
+			font-size: 7vw;
+			z-index: 1;
+			text-shadow: 0 0 60px #000000;
+			transition-property: opacity, visibility;
+			transition-duration: 0.5s;
+			transition-delay: 1s;
+		}
+		.has-interacted .instructions {
+			opacity: 0;
+			visibility: hidden;
+		}
 	</style>
 	<body>
 		<div class="playground js-playground">
+			<div class="instructions">
+				Hýbejte světlem<br />posunem prstu<br />po obrazovce
+			</div>
 			<div class="background js-background"></div>
 			<div class="reflector js-reflector"></div>
 		</div>

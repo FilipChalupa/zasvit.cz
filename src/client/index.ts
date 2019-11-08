@@ -1,5 +1,6 @@
 ;(function() {
 	let webSocket: WebSocket
+	const $body = document.querySelector('body') as HTMLElement
 	const $playground = document.querySelector('.js-playground') as HTMLElement
 	const $reflector = document.querySelector('.js-reflector') as HTMLElement
 	const $background = document.querySelector('.js-background') as HTMLElement
@@ -53,6 +54,7 @@
 		startPosition.y = event.clientY
 		onMove(event)
 		move()
+		$body.classList.add('has-interacted')
 	})
 
 	$playground.addEventListener('pointerup', (event) => {
