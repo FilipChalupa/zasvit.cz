@@ -1,5 +1,6 @@
 ;(function() {
 	function formatTimer(countdown: number) {
+		countdown = Math.min(countdown, 599)
 		const seconds = countdown % 60
 		const minutes = Math.floor(countdown / 60)
 		return `${minutes}:${seconds > 9 ? seconds : `0${seconds}`}`
