@@ -13,6 +13,7 @@
 	const maxSpeed = 4
 	const speedDumper = 50
 	const positionUploadInterval = 1000 / 30
+	let hasMoved = false
 
 	function range(min: number, value: number, max: number) {
 		return Math.max(min, Math.min(value, max))
@@ -31,6 +32,7 @@
 	}
 
 	function onMove(event: PointerEvent) {
+		hasMoved = true
 		direction.x = range(
 			-maxSpeed,
 			(event.clientX - startPosition.x) / speedDumper,
@@ -53,6 +55,7 @@
 		startPosition.x = event.clientX
 		startPosition.y = event.clientY
 		onMove(event)
+		hasMoved = false
 		move()
 		$body.classList.add('has-interacted')
 	})
@@ -66,6 +69,9 @@
 		if (moveTimer) {
 			cancelAnimationFrame(moveTimer)
 		}
+		if (hasMoved === false) {
+			flash()
+		}
 	})
 	window.addEventListener('resize', move)
 
@@ -78,6 +84,15 @@
 			],
 		})
 	}
+
+	function flash() {
+		if (!$reflector.classList.contains('is-flashing')) {
+			$reflector.classList.add('is-flashing')
+		}
+	}
+	$reflector.addEventListener('transitionend', () => {
+		$reflector.classList.remove('is-flashing')
+	})
 
 	const sendPositionThrottled = throttle(sendPosition, positionUploadInterval)
 

@@ -77,8 +77,15 @@
 			color: #ffdb76;
 			mix-blend-mode: multiply;
 		}
-		.reflector::before,
-		.reflector::after {
+		.reflector-light {
+			transition: transform 0.4s;
+		}
+		.reflector.is-flashing .reflector-light {
+			transform: scale(1.2);
+			transition-duration: 0.2s;
+		}
+		.reflector-light::before,
+		.reflector-light::after {
 			content: '';
 			position: absolute;
 			top: 0;
@@ -164,6 +171,7 @@
 			</div>
 			<div class="background js-background"></div>
 			<div class="reflector js-reflector">
+				<div class="reflector-light"></div>
 				<div class="joystick">
 					<div></div>
 					<div></div>
