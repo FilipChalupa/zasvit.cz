@@ -7,53 +7,89 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1, minimum-scale=1"
 		/>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
 		<script defer src="config.js"></script>
 	</head>
 	<body>
-		<section>
-			<h1>Timer</h1>
-			<div>
-				<input
-					type="number"
-					min="0"
-					step="1"
-					value="0"
-					class="js-timer-input"
-				/>
-				<button type="button" class="js-timer-set">Set</button>
-			</div>
-			<div>
-				<button type="button" class="js-timer-start">Start</button>
-				<button type="button" class="js-timer-pause">Pause</button>
-				<button type="button" class="js-timer-stop">Stop</button>
-			</div>
-		</section>
-		<section>
-			<h1>Involved</h1>
-			<div>
-				<input
-					type="number"
-					min="1"
-					step="1"
-					value="90"
-					class="js-involved-duration-input"
-				/>
-				<button type="button" class="js-involved-duration-set">Set</button>
-			</div>
-		</section>
-		<section>
-			<h1>Building</h1>
-			<div>
-				<label>
-					<input type="checkbox" class="js-building-visible" />
-					Building visible
-				</label>
-				<br />
-				<label>
-					<input type="checkbox" class="js-building-only" />
-					Building only
-				</label>
-			</div>
-		</section>
+		<main role="main">
+			<section class="container mt-4">
+				<h1>Timer</h1>
+				<div class="form-inline">
+					<div class="form-group mr-3 mb-2">
+						<input
+							type="number"
+							min="0"
+							step="1"
+							value="0"
+							class="form-control js-timer-input"
+						/>
+					</div>
+					<button type="button" class="btn btn-primary mb-2 js-timer-set">
+						Set
+					</button>
+				</div>
+				<div>
+					<button type="button" class="btn btn-primary js-timer-start">
+						Start
+					</button>
+					<button type="button" class="btn btn-primary js-timer-pause">
+						Pause
+					</button>
+					<button type="button" class="btn btn-primary js-timer-stop">
+						Stop
+					</button>
+				</div>
+			</section>
+			<section class="container mt-4">
+				<h1>Involved</h1>
+				<div class="form-inline">
+					<div class="form-group mr-3 mb-2">
+						<input
+							type="number"
+							min="1"
+							step="1"
+							value="90"
+							class="form-control js-involved-duration-input"
+						/>
+					</div>
+					<button
+						type="button"
+						class="btn btn-primary mb-2 js-involved-duration-set"
+					>
+						Set
+					</button>
+				</div>
+			</section>
+			<section class="container mt-4">
+				<h1>Building</h1>
+				<div>
+					<div class="form-check">
+						<input
+							id="building-1"
+							type="checkbox"
+							class="form-check-input js-building-visible"
+						/>
+						<label class="form-check-label" for="building-1">
+							Building visible
+						</label>
+					</div>
+					<div class="form-check">
+						<input
+							id="building-2"
+							type="checkbox"
+							class="form-check-input js-building-only"
+						/>
+						<label class="form-check-label" for="building-2">
+							Building only
+						</label>
+					</div>
+				</div>
+			</section>
+		</main>
 	</body>
 </html>
