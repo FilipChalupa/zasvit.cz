@@ -60,6 +60,32 @@ export class ScreenHandler {
 		})
 	}
 
+	public showBuilding() {
+		this.broadcast({
+			command: 'building-show',
+		})
+	}
+
+	public hideBuilding() {
+		this.broadcast({
+			command: 'building-hide',
+		})
+	}
+
+	public showBuildingOnly() {
+		this.broadcast({
+			command: 'building-only',
+			value: true,
+		})
+	}
+
+	public hideBuildingOnly() {
+		this.broadcast({
+			command: 'building-only',
+			value: false,
+		})
+	}
+
 	protected addReflector(id: number) {
 		this.reflectors[id] = {
 			id,

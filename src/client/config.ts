@@ -51,4 +51,26 @@
 					) || 40,
 			})
 		})
+
+	document
+		.querySelector('.js-building-visible')!
+		.addEventListener('change', (event) => {
+			// @ts-ignore
+			const checked: boolean = event.target.checked
+			send({
+				command: 'building-visible',
+				value: checked,
+			})
+		})
+
+	document
+		.querySelector('.js-building-only')!
+		.addEventListener('change', (event) => {
+			// @ts-ignore
+			const checked: boolean = event.target.checked
+			send({
+				command: 'building-only',
+				value: checked,
+			})
+		})
 })()

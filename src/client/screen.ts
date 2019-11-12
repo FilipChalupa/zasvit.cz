@@ -114,6 +114,19 @@
 				case 'involved-duration':
 					$body.style.setProperty('--involved-duration', `${data.value}s`)
 					break
+				case 'building-show':
+					$body.classList.add('is-buildingVisible')
+					break
+				case 'building-hide':
+					$body.classList.remove('is-buildingVisible')
+					break
+				case 'building-only':
+					if (data.value) {
+						$body.classList.add('is-buildingOnly')
+					} else {
+						$body.classList.remove('is-buildingOnly')
+					}
+					break
 			}
 		}
 	}

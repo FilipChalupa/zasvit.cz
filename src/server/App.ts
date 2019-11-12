@@ -20,7 +20,8 @@ export class App {
 		this.configHandler = new ConfigHandler(
 			wsConfig,
 			this.countdown,
-			this.screenHandler.updateInvolvedDuration
+			this.screenHandler.updateInvolvedDuration,
+			this.screenHandler
 		)
 		this.clientHandler = new ClientHandler(wsClient, this.screenHandler)
 	}
