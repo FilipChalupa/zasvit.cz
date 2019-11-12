@@ -119,6 +119,7 @@
 		}
 		.sponsors-first,
 		.sponsors-last {
+			position: relative;
 			display: flex;
 			justify-content: space-between;
 		}
@@ -126,7 +127,7 @@
 			width: 447px;
 		}
 		.sponsors-last {
-			width: 455px;
+			width: 458px;
 		}
 		.sponsor-dash {
 			margin: 0 20px;
@@ -151,18 +152,17 @@
 			top: 1240px;
 			left: 44px;
 			right: 50px;
-			overflow: hidden;
 			white-space: nowrap;
 			font-size: 20px;
 			clip-path: polygon(
-				-20% -20%,
-				40.9% -20%,
-				40.9% 120%,
-				58.4% 120%,
-				58.4% -20%,
-				120% -20%,
-				120% 120%,
-				-120% 120%
+				-80% -80%,
+				40.9% -80%,
+				40.9% 180%,
+				58.4% 180%,
+				58.4% -80%,
+				180% -80%,
+				180% 180%,
+				-180% 180%
 			);
 		}
 		@keyframes involved-in-scroll {
@@ -181,8 +181,8 @@
 		.entrance {
 			position: absolute;
 			top: 1544px;
-			left: 275px;
-			right: 294px;
+			left: 345px;
+			right: 364px;
 			text-align: center;
 			font-size: 35px;
 			text-transform: uppercase;
@@ -199,21 +199,52 @@
 		}
 		.camera {
 			position: absolute;
-			top: 1549px;
-			left: 902px;
-			right: 114px;
-			font-size: 20px;
+			top: 1544px;
+			left: 912px;
+			right: 124px;
+			font-size: 18px;
 			text-align: center;
 		}
-
 		.timer,
-		.sponsors,
+		.sponsors-first,
+		.sponsors-last,
 		.involved-content,
 		.entrance,
 		.camera {
 			z-index: 1;
-			text-shadow: 0 0 17px #000000;
-			filter: drop-shadow(0 0 17px #000000);
+		}
+		.timer::before,
+		.sponsors-first::before,
+		.sponsors-last::before,
+		.involved-content::before,
+		.entrance::before,
+		.camera::before {
+			content: '';
+			position: absolute;
+			z-index: -1;
+			top: -10px;
+			left: -10px;
+			right: -10px;
+			bottom: -10px;
+			background-color: rgba(0, 0, 0, 0.5);
+			filter: drop-shadow(0 0 5px #000000);
+		}
+		.involved-content::before {
+			top: -5px;
+			bottom: -5px;
+		}
+		.sponsors-first::before {
+			left: -30px;
+			right: 0;
+		}
+		.sponsors-last::before {
+			left: 0;
+			right: -30px;
+		}
+		.sponsors-first::before,
+		.sponsors-last::before {
+			top: -6px;
+			bottom: -6px;
 		}
 	</style>
 	<body>
