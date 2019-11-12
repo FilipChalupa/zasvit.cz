@@ -12,6 +12,11 @@
 		<script defer src="index.js"></script>
 	</head>
 	<style>
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+		}
 		body {
 			--reflector-size: 130px;
 			margin: 0;
@@ -68,8 +73,8 @@
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			mix-blend-mode: multiply;
 			color: #ffdb76;
+			mix-blend-mode: multiply;
 		}
 		.reflector::before,
 		.reflector::after {
@@ -97,7 +102,56 @@
 			transition-duration: 0.5s;
 			transition-delay: 1s;
 		}
-		.has-interacted .instructions {
+		@keyframes joystick-pop {
+			100% {
+				transform: scale(0.9);
+			}
+		}
+		.joystick {
+			position: absolute;
+			top: calc(-1 * var(--reflector-size) / 2);
+			left: calc(-1 * var(--reflector-size) / 2);
+			z-index: 1;
+			width: var(--reflector-size);
+			height: var(--reflector-size);
+			color: #ffffff;
+			animation: joystick-pop 1s infinite alternate ease;
+			transition-property: opacity, visibility;
+			transition-duration: 0.5s;
+			transition-delay: 1.5s;
+		}
+		.joystick div {
+			--arrow-size: 16px;
+			position: absolute;
+			top: 0;
+			left: calc(50% - var(--arrow-size) / 2);
+			right: calc(50% - var(--arrow-size) / 2);
+			bottom: 50%;
+			transform-origin: 50% 100%;
+		}
+		.joystick div::before {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: var(--arrow-size);
+			height: var(--arrow-size);
+			border-top: 5px solid;
+			border-left: 5px solid;
+			content: '';
+			transform-origin: 0 0;
+			transform: rotate(45deg);
+		}
+		.joystick div:nth-child(2) {
+			transform: rotate(90deg);
+		}
+		.joystick div:nth-child(3) {
+			transform: rotate(180deg);
+		}
+		.joystick div:nth-child(4) {
+			transform: rotate(270deg);
+		}
+		.has-interacted .instructions,
+		.has-interacted .joystick {
 			opacity: 0;
 			visibility: hidden;
 		}
@@ -105,10 +159,17 @@
 	<body>
 		<div class="playground js-playground" touch-action="none">
 			<div class="instructions">
-				Hýbejte světlem<br />posunem prstu<br />po obrazovce
+				Hýbejte světlem<br />tahem prstu<br />po obrazovce
 			</div>
 			<div class="background js-background"></div>
-			<div class="reflector js-reflector"></div>
+			<div class="reflector js-reflector">
+				<div class="joystick">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
