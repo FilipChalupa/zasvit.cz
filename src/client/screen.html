@@ -68,15 +68,17 @@
 			font-weight: 700;
 			left: 510px;
 			right: 526px;
-			text-align: right;
+			text-align: center;
 			font-variant-numeric: tabular-nums;
 			opacity: 0;
-			transition: opacity 0.3s 1s;
-			padding-right: 9px;
+			transition: opacity 0.3s 1s, color 2s 0s;
 		}
 		.timer.is-active {
 			opacity: 1;
 			transition-delay: 0s;
+		}
+		.is-flashWarning .timer {
+			color: transparent;
 		}
 		.reflectors {
 			width: 100%;
@@ -219,11 +221,16 @@
 		}
 		.camera {
 			position: absolute;
-			top: 1543px;
-			left: 912px;
-			right: 124px;
+			top: 809px;
+			left: 512px;
+			right: 527px;
 			font-size: 18px;
 			text-align: center;
+			opacity: 0;
+			transition: opacity 2s;
+		}
+		.is-flashWarning .camera {
+			opacity: 1;
 		}
 		.timer,
 		.sponsors-first,
@@ -237,8 +244,7 @@
 		.sponsors-first::before,
 		.sponsors-last::before,
 		.involved-content::before,
-		.entrance::before,
-		.camera::before {
+		.entrance::before {
 			content: '';
 			position: absolute;
 			z-index: -1;
