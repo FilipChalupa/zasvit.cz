@@ -15,6 +15,9 @@ export class ClientHandler {
 						const [x, y] = value.map((k) => parseInt(k, 10))
 						screenHandler.updateReflector(id, x, y)
 						break
+					case 'flash':
+						screenHandler.flashReflector(id)
+						break
 				}
 			})
 

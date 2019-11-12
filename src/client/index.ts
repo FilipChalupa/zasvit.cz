@@ -85,9 +85,16 @@
 		})
 	}
 
+	function sendFlash() {
+		send({
+			command: 'flash',
+		})
+	}
+
 	function flash() {
 		if (!$reflector.classList.contains('is-flashing')) {
 			$reflector.classList.add('is-flashing')
+			sendFlash()
 		}
 	}
 	$reflector.addEventListener('transitionend', () => {
@@ -146,6 +153,7 @@
 	init()
 
 	function send(data: any) {
-		webSocket.send(`${data.command}:${data.value.join(':')}`)
+		const parts = [data.command, ...(data.value || [])]
+		webSocket.send(parts.join(':'))
 	}
 })()

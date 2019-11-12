@@ -18,6 +18,13 @@ export class ScreenHandler {
 		})
 	}
 
+	public flashReflector = (id: number) => {
+		this.broadcast({
+			command: 'flash',
+			value: id,
+		})
+	}
+
 	public updateInvolvedDuration = (duration: number) => {
 		this.broadcast({
 			command: 'involved-duration',
@@ -48,7 +55,7 @@ export class ScreenHandler {
 		this.reflectors[id].x = x
 		this.reflectors[id].y = y
 		this.broadcast({
-			command: 'reflector-position',
+			command: 'position',
 			value: [id, x, y].join(':'),
 		})
 	}

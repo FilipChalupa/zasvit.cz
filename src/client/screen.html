@@ -80,16 +80,16 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			opacity: 0;
-			transition: opacity 2s 1s;
 		}
-		.reflectors div.is-active {
-			opacity: 1;
-			transition-duration: 1s;
-			transition-delay: 0s;
+		.reflectors div div {
+			transition: transform 0.4s;
 		}
-		.reflectors div::before,
-		.reflectors div::after {
+		.reflectors div.is-flashing div {
+			transform: scale(1.2);
+			transition-duration: 0.2s;
+		}
+		.reflectors div div::before,
+		.reflectors div div::after {
 			content: '';
 			position: absolute;
 			top: 0;
@@ -99,6 +99,14 @@
 			border-radius: 50%;
 			transform: translate(-50%, -50%);
 			background: radial-gradient(currentColor -1%, transparent 70%);
+			transition: opacity 2s 1s;
+			opacity: 0;
+		}
+		.reflectors div.is-active div::before,
+		.reflectors div.is-active div::after {
+			opacity: 1;
+			transition-duration: 1s;
+			transition-delay: 0s;
 		}
 		.sponsors {
 			position: absolute;

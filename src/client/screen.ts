@@ -38,9 +38,14 @@
 		} = {}
 		function addReflector(id: number, x: number, y: number) {
 			const $reflector = document.createElement('div')
+			const $reflectorIn = document.createElement('div')
 			$reflectors.appendChild($reflector)
+			$reflector.appendChild($reflectorIn)
 			$reflector.clientHeight // Force reflow
 			$reflector.classList.add('is-active')
+			$reflector.addEventListener('transitionend', () => {
+				$reflector.classList.remove('is-flashing')
+			})
 			reflectors[id] = {
 				id,
 				$reflector,
@@ -83,6 +88,12 @@
 			delete reflectors[id]
 		}
 
+		function flashReflector(id: number) {
+			if (!reflectors[id].$reflector.classList.contains('is-flashing')) {
+				reflectors[id].$reflector.classList.add('is-flashing')
+			}
+		}
+
 		webSocket.onmessage = (event) => {
 			const data = JSON.parse(event.data)
 			switch (data.command) {
@@ -90,9 +101,12 @@
 					$timer.classList.toggle('is-active', data.value > 0)
 					$timer.innerText = formatTimer(data.value)
 					break
-				case 'reflector-position':
+				case 'position':
 					const [id, x, y] = data.value.split(':')
 					updateReflector(id, parseInt(x, 10), parseInt(y, 10))
+					break
+				case 'flash':
+					flashReflector(data.value)
 					break
 				case 'reflector-remove':
 					removeReflector(data.value)
