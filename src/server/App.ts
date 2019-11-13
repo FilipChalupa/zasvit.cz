@@ -17,13 +17,15 @@ export class App {
 	) {
 		this.countdown = new Countdown(this.onCountdownUpdate)
 		this.screenHandler = new ScreenHandler(wsScreen)
+		this.clientHandler = new ClientHandler(wsClient, this.screenHandler)
 		this.configHandler = new ConfigHandler(
 			wsConfig,
 			this.countdown,
 			this.screenHandler.updateInvolvedDuration,
-			this.screenHandler
+			this.screenHandler,
+			wsScreen,
+			wsClient
 		)
-		this.clientHandler = new ClientHandler(wsClient, this.screenHandler)
 	}
 
 	protected onCountdownUpdate = (countdown: number) => {
