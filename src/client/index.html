@@ -15,6 +15,11 @@
 		<link rel="icon" sizes="192x192" href="icon/192.png" />
 		<script defer src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
 		<script defer src="index.js"></script>
+		<script>
+			if (location.hostname !== 'localhost' && location.protocol === 'http:') {
+				location.href = location.href.replace('http:', 'https:')
+			}
+		</script>
 	</head>
 	<style>
 		*,
