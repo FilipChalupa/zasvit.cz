@@ -111,4 +111,15 @@
 				value: checked,
 			})
 		})
+
+	document
+		.querySelector('.js-entrance-visible')!
+		.addEventListener('change', (event) => {
+			// @ts-ignore
+			const checked: boolean = event.target.checked
+			send({
+				command: 'entrance-visible',
+				value: checked,
+			})
+		})
 })()

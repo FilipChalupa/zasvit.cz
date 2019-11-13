@@ -139,6 +139,12 @@
 				case 'building-hide':
 					$body.classList.remove('is-buildingVisible')
 					break
+				case 'entrance-show':
+					$body.classList.add('is-entranceVisible')
+					break
+				case 'entrance-hide':
+					$body.classList.remove('is-entranceVisible')
+					break
 				case 'building-only':
 					if (data.value) {
 						$body.classList.add('is-buildingOnly')

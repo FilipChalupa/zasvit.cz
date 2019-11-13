@@ -86,6 +86,18 @@ export class ScreenHandler {
 		})
 	}
 
+	public showEntrance() {
+		this.broadcast({
+			command: 'entrance-show',
+		})
+	}
+
+	public hideEntrance() {
+		this.broadcast({
+			command: 'entrance-hide',
+		})
+	}
+
 	protected addReflector(id: number) {
 		this.reflectors[id] = {
 			id,

@@ -54,6 +54,13 @@ export class ConfigHandler {
 							screenHandler.hideBuildingOnly()
 						}
 						break
+					case 'entrance-visible':
+						if (data.value) {
+							screenHandler.showEntrance()
+						} else {
+							screenHandler.hideEntrance()
+						}
+						break
 				}
 			})
 		})
