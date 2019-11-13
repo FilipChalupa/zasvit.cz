@@ -1,7 +1,6 @@
 import * as WebSocket from 'ws'
 import { Countdown } from './Countdown'
 import { ScreenHandler } from './ScreenHandler'
-import { ClientHandler } from './ClientHandler'
 
 export class ConfigHandler {
 	protected wsServer: WebSocket.Server
@@ -57,9 +56,30 @@ export class ConfigHandler {
 						break
 				}
 			})
+		})
+		this.watchConnected()
+	}
 
-			ws.on('close', () => {
-				this.updateConnectedConfigs()
+	protected watchConnected() {
+		const servers = [
+			{
+				ws: this.wsServer,
+				callback: this.updateConnectedConfigs,
+			},
+			{
+				ws: this.wsScreen,
+				callback: this.updateConnectedScreens,
+			},
+			{
+				ws: this.wsClient,
+				callback: this.updateConnectedClients,
+			},
+		]
+
+		servers.forEach((server) => {
+			server.ws.on('connection', (ws: WebSocket) => {
+				server.callback()
+				ws.on('close', server.callback)
 			})
 		})
 	}
