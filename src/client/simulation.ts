@@ -9,7 +9,7 @@
 	const sendPosition = (x: number, y: number) => {
 		send({
 			command: 'p',
-			value: [x, y],
+			value: [Math.round(x), Math.round(y)],
 		})
 	}
 

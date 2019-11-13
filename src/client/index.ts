@@ -79,8 +79,8 @@
 		send({
 			command: 'p',
 			value: [
-				backgroundSize.width / 2 - centerOffset.x,
-				backgroundSize.height / 2 - centerOffset.y,
+				Math.round(backgroundSize.width / 2 - centerOffset.x),
+				Math.round(backgroundSize.height / 2 - centerOffset.y),
 			],
 		})
 	}
