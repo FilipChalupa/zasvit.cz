@@ -80,6 +80,9 @@
 			}
 		}
 		function removeReflector(id: number) {
+			if (!(id in reflectors)) {
+				return
+			}
 			const { $reflector } = reflectors[id]
 			cancelAnimationFrame(reflectors[id].loopTimer)
 			$reflector.classList.remove('is-active')
