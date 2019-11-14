@@ -61,6 +61,9 @@ export class ConfigHandler {
 							screenHandler.hideEntrance()
 						}
 						break
+					case 'involved-restart':
+						screenHandler.restartInvolved()
+						break
 				}
 			})
 		})

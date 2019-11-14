@@ -185,10 +185,18 @@
 				transform: translateX(-100%);
 			}
 		}
+		@keyframes involved-in-scroll-2 {
+			100% {
+				transform: translateX(-100%);
+			}
+		}
 		.involved-in {
 			width: fit-content;
-			padding-left: 100%;
+			padding-left: 150%;
 			animation: involved-in-scroll linear infinite var(--involved-duration);
+		}
+		.is-involvedRestart .involved-in {
+			animation-name: involved-in-scroll-2;
 		}
 		.involved-content {
 			position: relative;

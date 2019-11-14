@@ -98,6 +98,12 @@ export class ScreenHandler {
 		})
 	}
 
+	public restartInvolved() {
+		this.broadcast({
+			command: 'involved-restart',
+		})
+	}
+
 	protected addReflector(id: number) {
 		this.reflectors[id] = {
 			id,

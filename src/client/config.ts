@@ -122,4 +122,12 @@
 				value: checked,
 			})
 		})
+
+	document
+		.querySelector('.js-involved-restart')!
+		.addEventListener('click', () => {
+			send({
+				command: 'involved-restart',
+			})
+		})
 })()

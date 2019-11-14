@@ -152,6 +152,9 @@
 						$body.classList.remove('is-buildingOnly')
 					}
 					break
+				case 'involved-restart':
+					$body.classList.toggle('is-involvedRestart')
+					break
 			}
 		}
 	}
