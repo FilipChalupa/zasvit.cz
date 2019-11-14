@@ -4,7 +4,14 @@
 		width: 1200,
 		height: 1920,
 	}
-	const positionUploadInterval = 1000 / 30
+	const position = { x: 600, y: 1560 }
+	const direction = { x: 0, y: -1 }
+	const positionUploadInterval = 1000 / 10
+	const maxSpeed = 4
+
+	function range(min: number, value: number, max: number) {
+		return Math.max(min, Math.min(value, max))
+	}
 
 	const sendPosition = (x: number, y: number) => {
 		send({
@@ -29,12 +36,27 @@
 		webSocket.send(parts.join(':'))
 	}
 
-	const loop = () => {
+	function loop() {
 		setTimeout(loop, positionUploadInterval)
-		sendPosition(
-			Math.round(Math.random() * backgroundSize.width),
-			Math.round(Math.random() * backgroundSize.height)
-		)
+		const maxDiff = (1000 / positionUploadInterval) * maxSpeed
+		position.x += direction.x * maxDiff
+		position.y += direction.y * maxDiff
+		if (position.x > backgroundSize.width) {
+			direction.x = -1
+			direction.y = Math.random() < 0.5 ? 1 : -1
+		} else if (position.x < 0) {
+			direction.x = 1
+			direction.y = Math.random() < 0.5 ? 1 : -1
+		} else if (position.y > backgroundSize.height) {
+			direction.y = -1
+			direction.x = 0
+		} else if (position.y < 0) {
+			direction.y = 1
+			direction.x = Math.random() < 0.5 ? 1 : -1
+		}
+		position.x = range(0, position.x, backgroundSize.width)
+		position.y = range(0, position.y, backgroundSize.height)
+		sendPosition(position.x, position.y)
 	}
 	loop()
 })()

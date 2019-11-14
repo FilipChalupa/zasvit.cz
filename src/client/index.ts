@@ -12,7 +12,7 @@
 	}
 	const maxSpeed = 4
 	const speedDumper = 50
-	const positionUploadInterval = 1000 / 30
+	const positionUploadInterval = 1000 / 10
 	let hasMoved = false
 	let ignoreMoves = true
 
