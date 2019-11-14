@@ -9,6 +9,8 @@
 	const positionUploadInterval = 1000 / 10
 	const maxSpeed = 4
 
+	const $body = document.querySelector('body') as HTMLElement
+
 	function range(min: number, value: number, max: number) {
 		return Math.max(min, Math.min(value, max))
 	}
@@ -57,6 +59,8 @@
 		position.x = range(0, position.x, backgroundSize.width)
 		position.y = range(0, position.y, backgroundSize.height)
 		sendPosition(position.x, position.y)
+
+		$body.innerText = `x: ${position.x}, y: ${position.y}`
 	}
 	loop()
 })()
