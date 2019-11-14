@@ -14,6 +14,7 @@
 	const speedDumper = 50
 	const positionUploadInterval = 1000 / 30
 	let hasMoved = false
+	let ignoreMoves = true
 
 	function range(min: number, value: number, max: number) {
 		return Math.max(min, Math.min(value, max))
@@ -32,6 +33,10 @@
 	}
 
 	function onMove(event: PointerEvent) {
+		if (ignoreMoves === true) {
+			return
+		}
+
 		hasMoved = true
 		direction.x = range(
 			-maxSpeed,
@@ -45,11 +50,16 @@
 		)
 	}
 
+	function onResize() {
+		ignoreMoves = true
+	}
+
 	const direction = { x: 0, y: 0 }
 	const centerOffset = { x: 5, y: -600 }
 	const startPosition = { x: 0, y: 0 }
 
 	$playground.addEventListener('pointerdown', (event) => {
+		ignoreMoves = false
 		$playground.addEventListener('pointermove', onMove)
 		$playground.setPointerCapture(event.pointerId)
 		startPosition.x = event.clientX
@@ -73,7 +83,7 @@
 			flash()
 		}
 	})
-	window.addEventListener('resize', move)
+	window.addEventListener('resize', onResize)
 
 	function sendPosition() {
 		send({
