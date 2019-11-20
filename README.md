@@ -1,5 +1,5 @@
 # Rosviť hořice
 
-WIP
-
-[Live](https://horice-pause.herokuapp.com/)
+[Guest view](https://horice-pause.herokuapp.com/)
+[Projection view](https://horice-pause.herokuapp.com/screen.html)
+[Admin view](https://horice-pause.herokuapp.com/config.html)
