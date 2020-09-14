@@ -26,8 +26,8 @@
 		}
 		.playground {
 			position: relative;
-			width: 1200px;
-			height: 1920px;
+			width: 1434px;
+			height: 1200px;
 			overflow: hidden;
 		}
 		.playground::before {
@@ -63,11 +63,11 @@
 		}
 		.timer {
 			position: absolute;
-			top: 788px;
+			top: 598px;
 			font-size: 70px;
 			font-weight: 700;
-			left: 510px;
-			right: 526px;
+			left: 652px;
+			right: 641px;
 			text-align: center;
 			font-variant-numeric: tabular-nums;
 			opacity: 0;
@@ -88,7 +88,6 @@
 			left: 0;
 			right: 0;
 			bottom: 0;
-			mix-blend-mode: multiply;
 			color: #ffdb76;
 		}
 		.reflectors div {
@@ -123,48 +122,18 @@
 			transition-duration: 1s;
 			transition-delay: 0s;
 		}
-		.sponsors {
+		.title {
 			position: absolute;
-			top: 924px;
-			left: 48px;
-			right: 53px;
-			display: flex;
-			justify-content: space-between;
+			top: 403px;
+			left: 479px;
+			right: 467px;
 			font-size: 28px;
-		}
-		.sponsors-first,
-		.sponsors-last {
-			position: relative;
-			display: flex;
-			justify-content: space-between;
-		}
-		.sponsors-first {
-			width: 447px;
-		}
-		.sponsors-last {
-			width: 458px;
-		}
-		.sponsor-dash {
-			margin: 0 20px;
-			height: 7px;
-			background-color: currentColor;
-			flex-grow: 1;
-			align-self: center;
-		}
-		.sponsors-first .sponsor-dash:first-child,
-		.sponsors-last .sponsor-dash:first-child {
-			margin-left: 0;
-		}
-		.sponsors-first .sponsor-dash:last-child,
-		.sponsors-last .sponsor-dash:last-child {
-			margin-right: 0;
-		}
-		.sponsor {
-			flex-shrink: 0;
+			text-transform: uppercase;
+			text-align: center;
 		}
 		.involved {
 			position: absolute;
-			top: 1240px;
+			top: 630px;
 			left: 44px;
 			right: 50px;
 			white-space: nowrap;
@@ -203,9 +172,9 @@
 		}
 		.entrance {
 			position: absolute;
-			top: 1530px;
-			left: 437px;
-			right: 495px;
+			top: 376px;
+			left: 566px;
+			right: 600px;
 			text-align: center;
 			font-size: 30px;
 			line-height: 1.3;
@@ -229,8 +198,8 @@
 		}
 		.camera {
 			position: absolute;
-			top: 809px;
-			left: 512px;
+			top: 619px;
+			left: 535px;
 			right: 527px;
 			font-size: 18px;
 			text-align: center;
@@ -241,16 +210,13 @@
 			opacity: 1;
 		}
 		.timer,
-		.sponsors-first,
-		.sponsors-last,
-		.involved-content,
+		.title,
 		.entrance,
 		.camera {
 			z-index: 1;
 		}
 		.timer::before,
-		.sponsors-first::before,
-		.sponsors-last::before,
+		.title::before,
 		.involved-content::before,
 		.entrance::before {
 			content: '';
@@ -266,19 +232,6 @@
 			top: -5px;
 			bottom: -5px;
 		}
-		.sponsors-first::before {
-			left: -30px;
-			right: 0;
-		}
-		.sponsors-last::before {
-			left: 0;
-			right: -30px;
-		}
-		.sponsors-first::before,
-		.sponsors-last::before {
-			top: -6px;
-			bottom: -6px;
-		}
 		.entrance::before {
 			top: -2px;
 		}
@@ -287,25 +240,13 @@
 		<div class="playground">
 			<div class="js-timer timer"></div>
 			<div class="js-reflectors reflectors"></div>
-			<div class="sponsors">
-				<div class="sponsors-first">
-					<div class="sponsor-dash"></div>
-					<div class="sponsor">Město Hořice</div>
-					<div class="sponsor-dash"></div>
-					<div class="sponsor">MK ČR</div>
-					<div class="sponsor-dash"></div>
-				</div>
-				<div class="sponsors-last">
-					<div class="sponsor-dash"></div>
-					<div class="sponsor">FIT ČVUT</div>
-					<div class="sponsor-dash"></div>
-					<div class="sponsor">Unie ČPaMU</div>
-					<div class="sponsor-dash"></div>
-				</div>
+			<div class="title">
+				Královedvorská odysea
 			</div>
 			<div class="involved">
 				<div class="involved-in">
 					<div class="involved-content">
+						<!-- @TODO -->
 						Scénář, režie, choreografie, obrazy, multimediální vizualizace:
 						ZDEŇKA ČECHOVÁ - Hudba: MIROSLAV VOBOŘIL - Počítačové efekty,
 						animace, střih v technické spolupráci se studenty ČVUT v Praze:
@@ -317,7 +258,7 @@
 				</div>
 			</div>
 			<div class="entrance">
-				<div>zapojte se na</div>
+				<div>zapojte se teď na</div>
 				<span>www.</span><span>zasvit</span><span>.cz</span>
 			</div>
 			<div class="camera">

@@ -7,8 +7,8 @@
 
 	let moveTimer: null | number = null
 	const backgroundSize = {
-		width: 1200,
-		height: 1920,
+		width: $background.clientWidth,
+		height: $background.clientHeight,
 	}
 	const maxSpeed = 4
 	const speedDumper = 50
@@ -55,7 +55,7 @@
 	}
 
 	const direction = { x: 0, y: 0 }
-	const centerOffset = { x: 5, y: -600 }
+	const centerOffset = { x: -5, y: -30 }
 	const startPosition = { x: 0, y: 0 }
 
 	$playground.addEventListener('pointerdown', (event) => {
