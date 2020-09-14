@@ -98,21 +98,6 @@
 			}
 		}
 
-		const toggleFlashWarning = () => {
-			if ($body.classList.contains('is-flashWarning')) {
-				setTimeout(() => {
-					$body.classList.remove('is-flashWarning')
-					toggleFlashWarning()
-				}, 5000)
-			} else {
-				setTimeout(() => {
-					$body.classList.add('is-flashWarning')
-					toggleFlashWarning()
-				}, 14000)
-			}
-		}
-		toggleFlashWarning()
-
 		webSocket.onmessage = (event) => {
 			const data = JSON.parse(event.data)
 			switch (data.command) {
@@ -159,4 +144,19 @@
 		}
 	}
 	init()
+
+	const toggleFlashWarning = () => {
+		if ($body.classList.contains('is-flashWarning')) {
+			setTimeout(() => {
+				$body.classList.remove('is-flashWarning')
+				toggleFlashWarning()
+			}, 5000)
+		} else {
+			setTimeout(() => {
+				$body.classList.add('is-flashWarning')
+				toggleFlashWarning()
+			}, 14000)
+		}
+	}
+	toggleFlashWarning()
 })()
