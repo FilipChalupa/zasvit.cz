@@ -2,7 +2,7 @@
 <html lang="cs">
 	<head>
 		<meta charset="utf-8" />
-		<title>Rozsviť Dvůr Králové</title>
+		<title>Rozsviť Vyšehrad</title>
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1, minimum-scale=1"
@@ -57,11 +57,13 @@
 			overflow: hidden;
 		}
 		.background {
+			--width: 1200px;
+			--height: 1920px;
 			position: absolute;
-			top: calc(50% - 600px);
-			left: calc(50% - 717px);
-			width: 1434px;
-			height: 1200px;
+			top: calc(50% - var(--height) / 2);
+			left: calc(50% - var(--width) / 2);
+			width: var(--width);
+			height: var(--height);
 		}
 		.background::before,
 		.background::after {
