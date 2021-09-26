@@ -1,5 +1,5 @@
-# Rozsviť Dvůr Králové
+# Rozsviť Vyšehrad
 
-- [Guest view](https://dvur-kralove-pause.herokuapp.com/)
-- [Projection view](https://dvur-kralove-pause.herokuapp.com/screen.html)
-- [Admin view](https://dvur-kralove-pause.herokuapp.com/config.html)
+- [Guest view](https://vysehrad-pause.herokuapp.com/)
+- [Projection view](https://vysehrad-pause.herokuapp.com/screen.html)
+- [Admin view](https://vysehrad-pause.herokuapp.com/config.html)
