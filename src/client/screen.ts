@@ -31,6 +31,7 @@
 				x: number
 				y: number
 				angle: number
+				color: number
 				rendered: {
 					x: number
 					y: number
@@ -58,6 +59,7 @@
 				angle: -90,
 				rendered: { x, y, angle: -90 },
 				loopTimer: 0,
+				color: 0,
 			}
 			const loop = () => {
 				reflectors[id].rendered.angle = ease(
@@ -80,22 +82,25 @@
 			}
 			loop()
 		}
-		function updateReflector(id: number, x: number, y: number) {
+		function createIfNewReflector(id: number, x = 0, y = 0) {
 			if (!(id in reflectors)) {
 				addReflector(id, x, y)
-			} else {
-				reflectors[id].angle =
-					(Math.atan2(y - reflectors[id].y, x - reflectors[id].x) * 180) /
-					Math.PI
-				const angleDifference =
-					reflectors[id].rendered.angle - reflectors[id].angle
-				if (Math.abs(angleDifference) > 180) {
-					reflectors[id].angle += 360 * Math.round(angleDifference / 360)
-				}
-
-				reflectors[id].x = x
-				reflectors[id].y = y
 			}
+		}
+
+		function updateReflector(id: number, x: number, y: number) {
+			createIfNewReflector(id, x, y)
+
+			reflectors[id].angle =
+				(Math.atan2(y - reflectors[id].y, x - reflectors[id].x) * 180) / Math.PI
+			const angleDifference =
+				reflectors[id].rendered.angle - reflectors[id].angle
+			if (Math.abs(angleDifference) > 180) {
+				reflectors[id].angle += 360 * Math.round(angleDifference / 360)
+			}
+
+			reflectors[id].x = x
+			reflectors[id].y = y
 		}
 		function removeReflector(id: number) {
 			if (!(id in reflectors)) {
@@ -111,9 +116,16 @@
 		}
 
 		function flashReflector(id: number) {
+			createIfNewReflector(id)
 			if (!reflectors[id].$reflector.classList.contains('is-flashing')) {
 				reflectors[id].$reflector.classList.add('is-flashing')
 			}
+		}
+
+		function setColor(id: number, color: number) {
+			createIfNewReflector(id)
+			reflectors[id].color = color
+			reflectors[id].$reflector.style.setProperty('--hue-rotate', `${color}deg`)
 		}
 
 		webSocket.onmessage = (event) => {
@@ -123,10 +135,16 @@
 					$timer.classList.toggle('is-active', data.value > 0)
 					$timer.innerText = formatTimer(data.value)
 					break
-				case 'position':
+				case 'position': {
 					const [id, x, y] = data.value.split(':')
 					updateReflector(id, parseInt(x, 10), parseInt(y, 10))
 					break
+				}
+				case 'color': {
+					const [id, color] = data.value.split(':')
+					setColor(id, parseInt(color))
+					break
+				}
 				case 'flash':
 					flashReflector(data.value)
 					break

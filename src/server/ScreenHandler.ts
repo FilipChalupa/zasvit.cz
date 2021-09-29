@@ -25,6 +25,14 @@ export class ScreenHandler {
 		})
 	}
 
+	public setReflectorColor = (id: number, color: number) => {
+		console.log('broadcast', id, color)
+		this.broadcast({
+			command: 'color',
+			value: [id, color].join(':'),
+		})
+	}
+
 	public updateInvolvedDuration = (duration: number) => {
 		this.broadcast({
 			command: 'involved-duration',

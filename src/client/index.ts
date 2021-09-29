@@ -57,6 +57,8 @@
 	const direction = { x: 0, y: 0 }
 	const centerOffset = { x: 8, y: -214 }
 	const startPosition = { x: 0, y: 0 }
+	const color = Math.floor(Math.random() * 360) // @TODO: save to local storage
+	$playground.style.setProperty('--hue-rotate', `${color}deg`)
 
 	let isMoving = false
 	$playground.addEventListener('pointerdown', (event) => {
@@ -91,6 +93,7 @@
 	})
 	window.addEventListener('resize', onResize)
 
+	let sendPositionCounter = 0
 	function sendPosition() {
 		send({
 			command: 'p',
@@ -98,6 +101,19 @@
 				Math.round(backgroundSize.width / 2 - centerOffset.x),
 				Math.round(backgroundSize.height / 2 - centerOffset.y),
 			],
+		})
+
+		// Synchronize color every once in a while
+		if (sendPositionCounter % 100 === 0) {
+			sendColor()
+		}
+		sendPositionCounter++
+	}
+
+	function sendColor() {
+		send({
+			command: 'color',
+			value: [color],
 		})
 	}
 

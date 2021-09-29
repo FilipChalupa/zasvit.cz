@@ -11,13 +11,20 @@ export class ClientHandler {
 			ws.on('message', (message) => {
 				const [command, ...value] = message.toString().split(':')
 				switch (command) {
-					case 'p':
+					case 'p': {
 						const [x, y] = value.map((k) => parseInt(k, 10))
 						screenHandler.updateReflector(id, x, y)
 						break
-					case 'flash':
+					}
+					case 'color': {
+						const [color] = value.map((k) => parseInt(k, 10))
+						screenHandler.setReflectorColor(id, color)
+						break
+					}
+					case 'flash': {
 						screenHandler.flashReflector(id)
 						break
+					}
 				}
 			})
 
