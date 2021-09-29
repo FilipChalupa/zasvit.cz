@@ -92,12 +92,18 @@
 		function updateReflector(id: number, x: number, y: number) {
 			createIfNewReflector(id, x, y)
 
-			reflectors[id].angle =
-				(Math.atan2(y - reflectors[id].y, x - reflectors[id].x) * 180) / Math.PI
-			const angleDifference =
-				reflectors[id].rendered.angle - reflectors[id].angle
-			if (Math.abs(angleDifference) > 180) {
-				reflectors[id].angle += 360 * Math.round(angleDifference / 360)
+			if (
+				Math.abs(reflectors[id].x - x) > 1 ||
+				Math.abs(reflectors[id].y - y) > 1
+			) {
+				reflectors[id].angle =
+					(Math.atan2(y - reflectors[id].y, x - reflectors[id].x) * 180) /
+					Math.PI
+				const angleDifference =
+					reflectors[id].rendered.angle - reflectors[id].angle
+				if (Math.abs(angleDifference) > 180) {
+					reflectors[id].angle += 360 * Math.round(angleDifference / 360)
+				}
 			}
 
 			reflectors[id].x = x
