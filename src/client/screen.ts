@@ -33,6 +33,7 @@
 				rendered: {
 					x: number
 					y: number
+					angle: number
 				}
 				loopTimer: number
 			}
@@ -52,10 +53,19 @@
 				$reflector,
 				x,
 				y,
-				rendered: { x, y },
+				rendered: { x, y, angle: 0 },
 				loopTimer: 0,
 			}
 			const loop = () => {
+				// @TODO: smooth out
+				reflectors[id].rendered.angle =
+					(Math.atan2(
+						reflectors[id].y - reflectors[id].rendered.y,
+						reflectors[id].x - reflectors[id].rendered.x
+					) *
+						180) /
+						Math.PI +
+					90
 				reflectors[id].rendered.x = ease(
 					reflectors[id].rendered.x,
 					reflectors[id].x
@@ -66,7 +76,7 @@
 				)
 				reflectors[
 					id
-				].$reflector.style.transform = `translate(${reflectors[id].rendered.x}px, ${reflectors[id].rendered.y}px)`
+				].$reflector.style.transform = `translate(${reflectors[id].rendered.x}px, ${reflectors[id].rendered.y}px) rotate(${reflectors[id].rendered.angle}deg)`
 				reflectors[id].loopTimer = requestAnimationFrame(loop)
 			}
 			loop()

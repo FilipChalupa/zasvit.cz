@@ -113,6 +113,7 @@
 
 	const sendPositionThrottled = throttle(sendPosition, positionUploadInterval)
 
+	let lastAngle = 0
 	function updatePosition() {
 		const viewRect = $playground.getBoundingClientRect()
 		const viewSize = {
@@ -137,9 +138,15 @@
 			x: range(-overlapSize.width / 2, centerOffset.x, overlapSize.width / 2),
 			y: range(-overlapSize.height / 2, centerOffset.y, overlapSize.height / 2),
 		}
+		const angle =
+			direction.x === 0 && direction.y === 0
+				? lastAngle
+				: (Math.atan2(direction.y, direction.x) * 180) / Math.PI + 90
+		lastAngle = angle
 		$background.style.transform = `translate(${backgroundOffset.x}px, ${backgroundOffset.y}px)`
 		$reflector.style.transform = `translate(${backgroundOffset.x -
-			centerOffset.x}px, ${backgroundOffset.y - centerOffset.y}px)`
+			centerOffset.x}px, ${backgroundOffset.y -
+			centerOffset.y}px) rotate(${angle}deg)`
 	}
 	updatePosition()
 
