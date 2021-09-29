@@ -30,6 +30,7 @@
 				$reflector: HTMLDivElement
 				x: number
 				y: number
+				angle: number
 				rendered: {
 					x: number
 					y: number
@@ -38,6 +39,7 @@
 				loopTimer: number
 			}
 		} = {}
+
 		function addReflector(id: number, x: number, y: number) {
 			const $reflector = document.createElement('div')
 			const $reflectorIn = document.createElement('div')
@@ -53,19 +55,15 @@
 				$reflector,
 				x,
 				y,
-				rendered: { x, y, angle: 0 },
+				angle: -90,
+				rendered: { x, y, angle: -90 },
 				loopTimer: 0,
 			}
 			const loop = () => {
-				// @TODO: smooth out
-				reflectors[id].rendered.angle =
-					(Math.atan2(
-						reflectors[id].y - reflectors[id].rendered.y,
-						reflectors[id].x - reflectors[id].rendered.x
-					) *
-						180) /
-						Math.PI +
-					90
+				reflectors[id].rendered.angle = ease(
+					reflectors[id].rendered.angle,
+					reflectors[id].angle
+				)
 				reflectors[id].rendered.x = ease(
 					reflectors[id].rendered.x,
 					reflectors[id].x
@@ -74,9 +72,10 @@
 					reflectors[id].rendered.y,
 					reflectors[id].y
 				)
-				reflectors[
-					id
-				].$reflector.style.transform = `translate(${reflectors[id].rendered.x}px, ${reflectors[id].rendered.y}px) rotate(${reflectors[id].rendered.angle}deg)`
+				reflectors[id].$reflector.style.transform = `translate(${
+					reflectors[id].rendered.x
+				}px, ${reflectors[id].rendered.y}px) rotate(${reflectors[id].rendered
+					.angle + 90}deg)`
 				reflectors[id].loopTimer = requestAnimationFrame(loop)
 			}
 			loop()
@@ -85,6 +84,15 @@
 			if (!(id in reflectors)) {
 				addReflector(id, x, y)
 			} else {
+				reflectors[id].angle =
+					(Math.atan2(y - reflectors[id].y, x - reflectors[id].x) * 180) /
+					Math.PI
+				const angleDifference =
+					reflectors[id].rendered.angle - reflectors[id].angle
+				if (Math.abs(angleDifference) > 180) {
+					reflectors[id].angle += 360 * Math.round(angleDifference / 360)
+				}
+
 				reflectors[id].x = x
 				reflectors[id].y = y
 			}
