@@ -57,7 +57,12 @@
 	const direction = { x: 0, y: 0 }
 	const centerOffset = { x: 8, y: -214 }
 	const startPosition = { x: 0, y: 0 }
-	const color = Math.floor(Math.random() * 360) // @TODO: save to local storage
+
+	const storedColor = localStorage.getItem('color')
+	const color =
+		(storedColor ? parseInt(storedColor, 10) : null) ||
+		Math.floor(Math.random() * 360)
+	localStorage.setItem('color', color.toString())
 	$playground.style.setProperty('--hue-rotate', `${color}deg`)
 
 	let isMoving = false
