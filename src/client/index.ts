@@ -58,7 +58,12 @@
 	const centerOffset = { x: 8, y: -214 }
 	const startPosition = { x: 0, y: 0 }
 
+	let isMoving = false
 	$playground.addEventListener('pointerdown', (event) => {
+		if (isMoving) {
+			return
+		}
+		isMoving = true
 		ignoreMoves = false
 		$playground.addEventListener('pointermove', onMove)
 		$playground.setPointerCapture(event.pointerId)
@@ -71,6 +76,7 @@
 	})
 
 	$playground.addEventListener('pointerup', (event) => {
+		isMoving = false
 		$playground.removeEventListener('pointermove', onMove)
 		$playground.releasePointerCapture(event.pointerId)
 		direction.x = 0
