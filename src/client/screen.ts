@@ -135,6 +135,20 @@
 			reflectors[id].$reflector.style.setProperty('--hue-rotate', `${color}deg`)
 		}
 
+		const $flowers = document.querySelector('.js-flowers')!
+		function plantFlower(lifeDuration: number, x: number, y: number) {
+			console.log(lifeDuration, x, y)
+			const $flower = document.createElement('div')
+			$flower.style.setProperty('--life-duration', lifeDuration.toString())
+			$flower.style.setProperty('--x', x.toString())
+			$flower.style.setProperty('--y', y.toString())
+			$flowers.appendChild($flower)
+
+			setTimeout(() => {
+				$flower.remove()
+			}, lifeDuration * 1000)
+		}
+
 		webSocket.onmessage = (event) => {
 			const data = JSON.parse(event.data)
 			switch (data.command) {
@@ -183,6 +197,11 @@
 				case 'involved-restart':
 					$body.classList.toggle('is-involvedRestart')
 					break
+				case 'plant-flower': {
+					const [lifeDuration, x, y] = data.value.split(':')
+					plantFlower(parseInt(lifeDuration), parseFloat(x), parseFloat(y))
+					break
+				}
 			}
 		}
 	}

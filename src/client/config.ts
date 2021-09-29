@@ -130,4 +130,28 @@
 				command: 'involved-restart',
 			})
 		})
+
+	document
+		.querySelector<HTMLDivElement>('.js-building')!
+		.addEventListener('click', (event) => {
+			const {
+				top,
+				left,
+				width,
+				height,
+			} = (event.currentTarget as HTMLElement).getBoundingClientRect()
+			const x = (event.clientX - left) / width
+			const y = (event.clientY - top) / height
+			send({
+				command: 'plant-flower',
+				lifeDuration:
+					parseInt(
+						document.querySelector<HTMLInputElement>(
+							'.js-flower-life-duration'
+						)!.value
+					) || 10,
+				x,
+				y,
+			})
+		})
 })()

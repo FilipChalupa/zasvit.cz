@@ -1,151 +1,138 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Config</title>
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, minimum-scale=1"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-			crossorigin="anonymous"
-		/>
-		<script defer src="config.js"></script>
-	</head>
-	<body>
-		<main role="main" class="pb-4">
-			<section class="container mt-4">
-				<h1>Counter</h1>
-				<ul class="list-group">
-					<li
-						class="list-group-item d-flex justify-content-between align-items-center"
-					>
-						Guests
-						<span class="badge badge-light badge-pill js-connected-clients"
-							>?</span
-						>
-					</li>
-					<li
-						class="list-group-item d-flex justify-content-between align-items-center"
-					>
-						Screens
-						<span class="badge badge-light badge-pill js-connected-screens"
-							>?</span
-						>
-					</li>
-					<li
-						class="list-group-item d-flex justify-content-between align-items-center"
-					>
-						Configs
-						<span class="badge badge-light badge-pill js-connected-configs"
-							>?</span
-						>
-					</li>
-				</ul>
-			</section>
-			<section class="container mt-4">
-				<h1>Timer [s]</h1>
-				<div class="form-inline">
-					<div class="form-group mr-3 mb-2">
-						<input
-							type="number"
-							min="0"
-							step="1"
-							value="0"
-							class="form-control js-timer-input"
-						/>
-					</div>
-					<button type="button" class="btn btn-primary mb-2 js-timer-set">
-						Set
-					</button>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Config</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+	<script defer src="config.js"></script>
+	<style>
+		.building {
+			max-width: 400px;
+		}
+
+		.building-in {
+			--width: 1200px;
+			--height: 1920px;
+			background-image: url('./background.jpg');
+			background-size: cover;
+		}
+
+		.building-in::before {
+			content: '';
+			display: block;
+			aspect-ratio: 1200 / 1920;
+			background-image: url('./mask.png');
+			background-size: cover;
+		}
+	</style>
+</head>
+
+<body>
+	<main role="main" class="pb-4">
+		<section class="container mt-4">
+			<h1>Counter</h1>
+			<ul class="list-group">
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					Guests
+					<span class="badge badge-light badge-pill js-connected-clients">?</span>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					Screens
+					<span class="badge badge-light badge-pill js-connected-screens">?</span>
+				</li>
+				<li class="list-group-item d-flex justify-content-between align-items-center">
+					Configs
+					<span class="badge badge-light badge-pill js-connected-configs">?</span>
+				</li>
+			</ul>
+		</section>
+		<section class="container mt-4">
+			<h1>Flowers</h1>
+			<div class="mb-2">
+				<div class="form-group">
+					<label for="flower-life-duration">Life duration [s]</label>
+					<input type="number" min="1" step="1" class="form-control js-flower-life-duration" id="flower-life-duration"
+						value="10">
 				</div>
-				<div class="btn-group">
-					<button type="button" class="btn btn-success js-timer-start">
-						Start
-					</button>
-					<button type="button" class="btn btn-warning js-timer-pause">
-						Pause
-					</button>
-					<button type="button" class="btn btn-danger js-timer-stop">
-						Stop
-					</button>
+			</div>
+			<div class="building js-building">
+				<div class="building-in"></div>
+			</div>
+		</section>
+		<section class="container mt-4">
+			<h1>Timer [s]</h1>
+			<div class="form-inline">
+				<div class="form-group mr-3 mb-2">
+					<input type="number" min="0" step="1" value="0" class="form-control js-timer-input" />
 				</div>
-			</section>
-			<section class="container mt-4">
-				<h1>Involved duration [s]</h1>
-				<div class="form-inline">
-					<div class="form-group mr-3 mb-2">
-						<input
-							type="number"
-							min="1"
-							step="1"
-							value="90"
-							class="form-control js-involved-duration-input"
-						/>
-					</div>
-					<button
-						type="button"
-						class="btn btn-primary mb-2 js-involved-duration-set"
-					>
-						Set
-					</button>
+				<button type="button" class="btn btn-primary mb-2 js-timer-set">
+					Set
+				</button>
+			</div>
+			<div class="btn-group">
+				<button type="button" class="btn btn-success js-timer-start">
+					Start
+				</button>
+				<button type="button" class="btn btn-warning js-timer-pause">
+					Pause
+				</button>
+				<button type="button" class="btn btn-danger js-timer-stop">
+					Stop
+				</button>
+			</div>
+		</section>
+		<section class="container mt-4">
+			<h1>Involved duration [s]</h1>
+			<div class="form-inline">
+				<div class="form-group mr-3 mb-2">
+					<input type="number" min="1" step="1" value="90" class="form-control js-involved-duration-input" />
 				</div>
-				<div class="btn-group">
-					<button type="button" class="btn btn-warning js-involved-restart">
-						Restart position
-					</button>
+				<button type="button" class="btn btn-primary mb-2 js-involved-duration-set">
+					Set
+				</button>
+			</div>
+			<div class="btn-group">
+				<button type="button" class="btn btn-warning js-involved-restart">
+					Restart position
+				</button>
+			</div>
+		</section>
+		<section class="container mt-4">
+			<h1>Building</h1>
+			<div>
+				<div class="form-check">
+					<input id="building-1" type="checkbox" class="form-check-input js-building-visible" />
+					<label class="form-check-label" for="building-1">
+						Building visible
+					</label>
 				</div>
-			</section>
-			<section class="container mt-4">
-				<h1>Building</h1>
-				<div>
-					<div class="form-check">
-						<input
-							id="building-1"
-							type="checkbox"
-							class="form-check-input js-building-visible"
-						/>
-						<label class="form-check-label" for="building-1">
-							Building visible
-						</label>
-					</div>
-					<div class="form-check">
-						<input
-							id="building-2"
-							type="checkbox"
-							class="form-check-input js-building-only"
-						/>
-						<label class="form-check-label" for="building-2">
-							Building only
-						</label>
-					</div>
-					<div class="form-check">
-						<input
-							id="entrance-1"
-							type="checkbox"
-							class="form-check-input js-entrance-visible"
-						/>
-						<label class="form-check-label" for="entrance-1">
-							Entrance visible
-						</label>
-					</div>
+				<div class="form-check">
+					<input id="building-2" type="checkbox" class="form-check-input js-building-only" />
+					<label class="form-check-label" for="building-2">
+						Building only
+					</label>
 				</div>
-			</section>
-		</main>
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=UA-52555251-9"
-		></script>
-		<script>
-			window.dataLayer = window.dataLayer || []
-			function gtag() {
-				dataLayer.push(arguments)
-			}
-			gtag('js', new Date())
-			gtag('config', 'UA-52555251-9')
-		</script>
-	</body>
+				<div class="form-check">
+					<input id="entrance-1" type="checkbox" class="form-check-input js-entrance-visible" />
+					<label class="form-check-label" for="entrance-1">
+						Entrance visible
+					</label>
+				</div>
+			</div>
+		</section>
+	</main>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-52555251-9"></script>
+	<script>
+		window.dataLayer = window.dataLayer || []
+		function gtag() {
+			dataLayer.push(arguments)
+		}
+		gtag('js', new Date())
+		gtag('config', 'UA-52555251-9')
+	</script>
+</body>
+
 </html>

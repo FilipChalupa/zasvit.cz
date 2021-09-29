@@ -63,6 +63,8 @@ export class ConfigHandler {
 						break
 					case 'involved-restart':
 						screenHandler.restartInvolved()
+					case 'plant-flower':
+						screenHandler.plantFlower(data.lifeDuration, data.x, data.y)
 						break
 				}
 			})

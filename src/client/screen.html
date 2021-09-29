@@ -14,6 +14,8 @@
 		background-color: #000000;
 		--involved-duration: 150s;
 		--reflector-size: 60px;
+		--width: 1200px;
+		--height: 1920px;
 	}
 
 	* {
@@ -28,8 +30,8 @@
 
 	.playground {
 		position: relative;
-		width: 1200px;
-		height: 1920px;
+		width: var(--width);
+		height: var(--height);
 		overflow: hidden;
 	}
 
@@ -146,6 +148,51 @@
 		opacity: 1;
 		transition-duration: 1s;
 		transition-delay: 0s;
+	}
+
+	.flowers {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	@keyframes flower-fadeOut {
+		to {
+			opacity: 0;
+		}
+	}
+
+	.flowers div {
+		--size: 40px;
+		--fadeOut-duration: 0.8s;
+		position: absolute;
+		top: calc(var(--y) * var(--height) - var(--size) / 2);
+		left: calc(var(--x) * var(--width) - var(--size) / 2);
+		width: var(--size);
+		height: var(--size);
+		animation: flower-fadeOut var(--fadeOut-duration) calc(1s * var(--life-duration) - var(--fadeOut-duration)) forwards;
+	}
+
+	@keyframes flower-bloom {
+		from {
+			transform: scale(0);
+		}
+	}
+
+	.flowers div::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('./flower.png');
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		animation: flower-bloom 1s;
 	}
 
 	.title {
@@ -291,6 +338,7 @@
 <body>
 	<div class="playground">
 		<div class="js-timer timer"></div>
+		<div class="js-flowers flowers"></div>
 		<div class="js-reflectors reflectors"></div>
 		<div class="title">
 			Královedvorská odysea

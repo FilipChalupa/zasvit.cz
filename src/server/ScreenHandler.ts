@@ -25,6 +25,13 @@ export class ScreenHandler {
 		})
 	}
 
+	public plantFlower = (lifeDuration: number, x: number, y: number) => {
+		this.broadcast({
+			command: 'plant-flower',
+			value: [lifeDuration, x, y].join(':'),
+		})
+	}
+
 	public setReflectorColor = (id: number, color: number) => {
 		this.broadcast({
 			command: 'color',
