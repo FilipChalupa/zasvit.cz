@@ -1,290 +1,328 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Screen</title>
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1, minimum-scale=1"
-		/>
-		<script defer src="screen.js"></script>
-	</head>
-	<style>
-		body {
-			margin: 0;
-			color: #ffffff;
-			background-color: #000000;
-			--involved-duration: 150s;
+
+<head>
+	<meta charset="utf-8" />
+	<title>Screen</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+	<script defer src="screen.js"></script>
+</head>
+<style>
+	body {
+		margin: 0;
+		color: #ffffff;
+		background-color: #000000;
+		--involved-duration: 150s;
+		--reflector-size: 60px;
+	}
+
+	* {
+		font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	.playground {
+		position: relative;
+		width: 1200px;
+		height: 1920px;
+		overflow: hidden;
+	}
+
+	.playground::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: url('./background.jpg');
+		opacity: 0;
+		visibility: hidden;
+		transition-property: opacity, visibility;
+		transition-duration: 0.5s;
+	}
+
+	.is-buildingVisible .playground::before {
+		opacity: 0.2;
+		visibility: visible;
+	}
+
+	.is-buildingOnly .playground::before {
+		opacity: 1;
+		visibility: visible;
+		z-index: 100;
+	}
+
+	.playground::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image: url('./mask.png');
+	}
+
+	.timer {
+		position: absolute;
+		top: 598px;
+		font-size: 70px;
+		font-weight: 700;
+		left: 652px;
+		right: 641px;
+		text-align: center;
+		font-variant-numeric: tabular-nums;
+		opacity: 0;
+		transition: opacity 0.3s 1s, color 2s 0s;
+	}
+
+	.timer.is-active {
+		opacity: 1;
+		transition-delay: 0s;
+	}
+
+	.is-flashWarning .timer {
+		color: transparent;
+	}
+
+	.reflectors {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		color: #ffdb76;
+	}
+
+	.reflectors div {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	.reflectors div div {
+		transition: transform 0.4s;
+	}
+
+	.reflectors div.is-flashing div {
+		transform: scale(1.2);
+		transition-duration: 0.2s;
+	}
+
+	@keyframes flap {
+		to {
+			transform: scaleX(0.8);
 		}
-		* {
-			font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-		}
-		*,
-		*::before,
-		*::after {
-			box-sizing: border-box;
-		}
-		.playground {
-			position: relative;
-			width: 1200px;
-			height: 1920px;
-			overflow: hidden;
-		}
-		.playground::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background-image: url('./background.jpg');
-			opacity: 0;
-			visibility: hidden;
-			transition-property: opacity, visibility;
-			transition-duration: 0.5s;
-		}
-		.is-buildingVisible .playground::before {
-			opacity: 0.2;
-			visibility: visible;
-		}
-		.is-buildingOnly .playground::before {
-			opacity: 1;
-			visibility: visible;
-			z-index: 100;
-		}
-		.playground::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background-image: url('./mask.png');
-		}
-		.timer {
-			position: absolute;
-			top: 598px;
-			font-size: 70px;
-			font-weight: 700;
-			left: 652px;
-			right: 641px;
-			text-align: center;
-			font-variant-numeric: tabular-nums;
-			opacity: 0;
-			transition: opacity 0.3s 1s, color 2s 0s;
-		}
-		.timer.is-active {
-			opacity: 1;
-			transition-delay: 0s;
-		}
-		.is-flashWarning .timer {
-			color: transparent;
-		}
-		.reflectors {
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			color: #ffdb76;
-		}
-		.reflectors div {
-			position: absolute;
-			top: 0;
-			left: 0;
-		}
-		.reflectors div div {
-			transition: transform 0.4s;
-		}
-		.reflectors div.is-flashing div {
-			transform: scale(1.2);
-			transition-duration: 0.2s;
-		}
-		.reflectors div div::before,
-		.reflectors div div::after {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 60px;
-			height: 60px;
-			border-radius: 50%;
-			transform: translate(-50%, -50%);
-			background: radial-gradient(currentColor -1%, transparent 70%);
-			transition: opacity 2s 1s;
-			opacity: 0;
-		}
-		.reflectors div.is-active div::before,
-		.reflectors div.is-active div::after {
-			opacity: 1;
-			transition-duration: 1s;
-			transition-delay: 0s;
-		}
-		.title {
-			position: absolute;
-			top: 403px;
-			left: 479px;
-			right: 467px;
-			font-size: 28px;
-			text-transform: uppercase;
-			text-align: center;
-		}
-		.involved {
-			position: absolute;
-			top: 630px;
-			left: 44px;
-			right: 50px;
-			white-space: nowrap;
-			font-size: 23px;
-			clip-path: polygon(
-				-80% -80%,
+	}
+
+	.reflectors div div::before {
+		content: '';
+		position: absolute;
+		top: calc(-1 * var(--reflector-size) / 2);
+		left: calc(-1 * var(--reflector-size) / 2);
+		width: var(--reflector-size);
+		height: var(--reflector-size);
+		background-image: url('./butterfly.png');
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		animation: flap 2s infinite alternate;
+		transition: opacity 2s 1s;
+		opacity: 0;
+	}
+
+	.reflectors div.is-active div::before,
+	.reflectors div.is-active div::after {
+		opacity: 1;
+		transition-duration: 1s;
+		transition-delay: 0s;
+	}
+
+	.title {
+		position: absolute;
+		top: 403px;
+		left: 479px;
+		right: 467px;
+		font-size: 28px;
+		text-transform: uppercase;
+		text-align: center;
+	}
+
+	.involved {
+		position: absolute;
+		top: 630px;
+		left: 44px;
+		right: 50px;
+		white-space: nowrap;
+		font-size: 23px;
+		clip-path: polygon(-80% -80%,
 				41.9% -80%,
 				41.9% 180%,
 				59.6% 180%,
 				59.6% -80%,
 				180% -80%,
 				180% 180%,
-				-180% 180%
-			);
+				-180% 180%);
+	}
+
+	@keyframes involved-in-scroll {
+		100% {
+			transform: translateX(-100%);
 		}
-		@keyframes involved-in-scroll {
-			100% {
-				transform: translateX(-100%);
-			}
+	}
+
+	@keyframes involved-in-scroll-2 {
+		100% {
+			transform: translateX(-100%);
 		}
-		@keyframes involved-in-scroll-2 {
-			100% {
-				transform: translateX(-100%);
-			}
-		}
-		.involved-in {
-			width: fit-content;
-			padding-left: 150%;
-			animation: involved-in-scroll linear infinite var(--involved-duration);
-			/*animation: involved-in-scroll linear infinite 500s -300s;*/
-		}
-		.is-involvedRestart .involved-in {
-			animation-name: involved-in-scroll-2;
-		}
-		.involved-content {
-			position: relative;
-		}
-		.entrance {
-			position: absolute;
-			top: 382px;
-			left: 1036px;
-			right: 152px;
-			text-align: center;
-			font-size: 30px;
-			line-height: 1.3;
-			opacity: 0;
-			transition: opacity 0.3s;
-		}
-		.is-entranceVisible .entrance {
-			opacity: 1;
-		}
-		.entrance div {
-			font-size: 16px;
-			opacity: 0.6;
-			padding-left: 5.6ex;
-		}
-		.entrance span {
-			text-transform: uppercase;
-		}
-		.entrance span:first-of-type,
-		.entrance span:last-of-type {
-			opacity: 0.7;
-		}
-		.camera {
-			position: absolute;
-			top: 619px;
-			left: 535px;
-			right: 527px;
-			font-size: 18px;
-			text-align: center;
-			opacity: 0;
-			transition: opacity 2s;
-		}
-		.is-flashWarning .camera {
-			opacity: 1;
-		}
-		.timer,
-		.title,
-		.entrance,
-		.camera {
-			z-index: 1;
-		}
-		.timer::before,
-		.title::before,
-		.involved-content::before,
-		.entrance::before {
-			content: '';
-			position: absolute;
-			z-index: -1;
-			top: -10px;
-			left: -10px;
-			right: -10px;
-			bottom: -10px;
-			background-color: rgba(0, 0, 0, 0.5);
-		}
-		.involved-content::before {
-			top: -5px;
-			bottom: -5px;
-		}
-		.entrance::before {
-			top: -2px;
-		}
-		.title,
-		.entrance,
-		.involved,
-		.timer,
-		.camera {
-			display: none;
-		}
-	</style>
-	<body>
-		<div class="playground">
-			<div class="js-timer timer"></div>
-			<div class="js-reflectors reflectors"></div>
-			<div class="title">
-				Královedvorská odysea
-			</div>
-			<div class="involved">
-				<div class="involved-in">
-					<div class="involved-content">
-						Scénář, režie, choreografie, obrazy, multimediální vizualizace:
-						ZDEŇKA ČECHOVÁ - Hudba: MIROSLAV VOBOŘIL - Počítačové efekty,
-						animace, střih v technické spolupráci se studenty FIT ČVUT v Praze:
-						LUCIA ČAHOJOVÁ, TIMEA ČITBAJOVÁ, DANIEL HONYS, DANIEL JANOTA, JAKUB
-						LUŇÁČEK, ADAM MAKARA, TOMÁŠ MAREK, ONDŘEJ MÄRZ, KAROLÍNA RITZKOVÁ -
-						Technická podpora a kompletace: FILIP CHALUPA, LUKÁŠ CHALUPA -
-						Projekce a ozvučení: JAROMÍR LANDSMAN - Produkce: ZDEŇKA ČECHOVÁ.
-					</div>
+	}
+
+	.involved-in {
+		width: fit-content;
+		padding-left: 150%;
+		animation: involved-in-scroll linear infinite var(--involved-duration);
+		/*animation: involved-in-scroll linear infinite 500s -300s;*/
+	}
+
+	.is-involvedRestart .involved-in {
+		animation-name: involved-in-scroll-2;
+	}
+
+	.involved-content {
+		position: relative;
+	}
+
+	.entrance {
+		position: absolute;
+		top: 382px;
+		left: 1036px;
+		right: 152px;
+		text-align: center;
+		font-size: 30px;
+		line-height: 1.3;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+
+	.is-entranceVisible .entrance {
+		opacity: 1;
+	}
+
+	.entrance div {
+		font-size: 16px;
+		opacity: 0.6;
+		padding-left: 5.6ex;
+	}
+
+	.entrance span {
+		text-transform: uppercase;
+	}
+
+	.entrance span:first-of-type,
+	.entrance span:last-of-type {
+		opacity: 0.7;
+	}
+
+	.camera {
+		position: absolute;
+		top: 619px;
+		left: 535px;
+		right: 527px;
+		font-size: 18px;
+		text-align: center;
+		opacity: 0;
+		transition: opacity 2s;
+	}
+
+	.is-flashWarning .camera {
+		opacity: 1;
+	}
+
+	.timer,
+	.title,
+	.entrance,
+	.camera {
+		z-index: 1;
+	}
+
+	.timer::before,
+	.title::before,
+	.involved-content::before,
+	.entrance::before {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		top: -10px;
+		left: -10px;
+		right: -10px;
+		bottom: -10px;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+
+	.involved-content::before {
+		top: -5px;
+		bottom: -5px;
+	}
+
+	.entrance::before {
+		top: -2px;
+	}
+
+	.title,
+	.entrance,
+	.involved,
+	.timer,
+	.camera {
+		display: none;
+	}
+</style>
+
+<body>
+	<div class="playground">
+		<div class="js-timer timer"></div>
+		<div class="js-reflectors reflectors"></div>
+		<div class="title">
+			Královedvorská odysea
+		</div>
+		<div class="involved">
+			<div class="involved-in">
+				<div class="involved-content">
+					Scénář, režie, choreografie, obrazy, multimediální vizualizace:
+					ZDEŇKA ČECHOVÁ - Hudba: MIROSLAV VOBOŘIL - Počítačové efekty,
+					animace, střih v technické spolupráci se studenty FIT ČVUT v Praze:
+					LUCIA ČAHOJOVÁ, TIMEA ČITBAJOVÁ, DANIEL HONYS, DANIEL JANOTA, JAKUB
+					LUŇÁČEK, ADAM MAKARA, TOMÁŠ MAREK, ONDŘEJ MÄRZ, KAROLÍNA RITZKOVÁ -
+					Technická podpora a kompletace: FILIP CHALUPA, LUKÁŠ CHALUPA -
+					Projekce a ozvučení: JAROMÍR LANDSMAN - Produkce: ZDEŇKA ČECHOVÁ.
 				</div>
 			</div>
-			<div class="entrance">
-				<div>zapojte se teď na</div>
-				<span>www.</span><span>zasvit</span><span>.cz</span>
-			</div>
-			<div class="camera">
-				Foťte bez blesku!
-				<br />
-				No flash!
-			</div>
 		</div>
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=UA-52555251-9"
-		></script>
-		<script>
-			window.dataLayer = window.dataLayer || []
-			function gtag() {
-				dataLayer.push(arguments)
-			}
-			gtag('js', new Date())
-			gtag('config', 'UA-52555251-9')
-		</script>
-	</body>
+		<div class="entrance">
+			<div>zapojte se teď na</div>
+			<span>www.</span><span>zasvit</span><span>.cz</span>
+		</div>
+		<div class="camera">
+			Foťte bez blesku!
+			<br />
+			No flash!
+		</div>
+	</div>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-52555251-9"></script>
+	<script>
+		window.dataLayer = window.dataLayer || []
+		function gtag() {
+			dataLayer.push(arguments)
+		}
+		gtag('js', new Date())
+		gtag('config', 'UA-52555251-9')
+	</script>
+</body>
+
 </html>
