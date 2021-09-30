@@ -98,7 +98,7 @@
 	})
 	window.addEventListener('resize', onResize)
 
-	let sendPositionCounter = 0
+	let readyToSendColor = true
 	function sendPosition() {
 		send({
 			command: 'p',
@@ -107,12 +107,13 @@
 				Math.round(backgroundSize.height / 2 - centerOffset.y),
 			],
 		})
-
-		// Synchronize color every once in a while
-		if (sendPositionCounter % 100 === 0) {
+		if (readyToSendColor) {
+			readyToSendColor = false
 			sendColor()
+			setTimeout(() => {
+				readyToSendColor = true
+			}, 5000)
 		}
-		sendPositionCounter++
 	}
 
 	function sendColor() {
