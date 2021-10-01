@@ -1,4 +1,25 @@
 ;(function() {
+	const stringHashCode = (str: string) => {
+		let hash = 0
+		for (let i = 0; i < str.length; ++i)
+			hash = Math.imul(31, hash) + str.charCodeAt(i)
+
+		return hash | 0
+	}
+
+	let password = localStorage.getItem('password') || ''
+	let tries = 0
+	while (stringHashCode(password) !== 103333805) {
+		if (tries === 3) {
+			alert('Too many tries')
+			return
+		}
+		tries++
+
+		password = prompt('Password') || ''
+	}
+	localStorage.setItem('password', password)
+
 	let webSocket: WebSocket
 
 	const $connectedClients = document.querySelector(
