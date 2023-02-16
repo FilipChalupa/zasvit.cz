@@ -1,8 +1,8 @@
 # Zasviť: interactive videomapping pause
 
-- [Guest view](https://vysehrad-pause.herokuapp.com/)
-- [Projection view](https://vysehrad-pause.herokuapp.com/screen.html)
-- [Admin view](https://vysehrad-pause.herokuapp.com/config.html)
+- [Guest view](https://rudolfinum-2023.onrender.com/)
+- [Projection view](https://rudolfinum-2023.onrender.com/screen.html)
+- [Admin view](https://rudolfinum-2023.onrender.com/config.html)
 
 ## Development
 
