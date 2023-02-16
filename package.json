@@ -31,8 +31,5 @@
 		"trailingComma": "es5",
 		"useTabs": true,
 		"arrowParens": "always"
-	},
-	"engines": {
-		"node": "12.x"
 	}
 }
