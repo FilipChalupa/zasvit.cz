@@ -9,7 +9,7 @@
 
 	let password = localStorage.getItem('password') || ''
 	let tries = 0
-	while (stringHashCode(password) !== 103333805) {
+	while (stringHashCode(password) !== 108240) {
 		if (tries === 3) {
 			alert('Too many tries')
 			return
