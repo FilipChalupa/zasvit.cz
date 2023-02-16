@@ -1,7 +1,7 @@
 import * as express from 'express'
 import * as http from 'http'
-import * as WebSocket from 'ws'
 import * as url from 'url'
+import * as WebSocket from 'ws'
 import { App } from './App'
 
 console.log('Starting server')
@@ -39,9 +39,7 @@ server.on('upgrade', (request, socket, head) => {
 	}
 })
 
-server.listen(process.env.PORT || 8999, () => {
-	console.log(
-		// @ts-ignore
-		`Server started on port ${server.address().port}`
-	)
+const port = process.env.PORT || 8999
+server.listen(port, () => {
+	console.log(`Server started on port ${port}`)
 })
