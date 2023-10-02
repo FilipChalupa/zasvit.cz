@@ -1,235 +1,239 @@
 <!DOCTYPE html>
 <html lang="cs">
-
-<head>
-	<meta charset="utf-8" />
-	<title>Zasviť</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-	<meta name="theme-color" content="#000000" />
-	<link rel="icon" type="image/png" href="icon/36.png" />
-	<link rel="icon" sizes="36x36" href="icon/36.png" />
-	<link rel="icon" sizes="48x48" href="icon/48.png" />
-	<link rel="icon" sizes="96x96" href="icon/96.png" />
-	<link rel="icon" sizes="192x192" href="icon/192.png" />
-	<script defer src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
-	<script defer src="index.js"></script>
-	<script>
-		if (location.hostname !== 'localhost' && location.protocol === 'http:') {
-			location.href = location.href.replace('http:', 'https:')
+	<head>
+		<meta charset="utf-8" />
+		<title>Zasviť</title>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, minimum-scale=1"
+		/>
+		<meta name="theme-color" content="#000000" />
+		<link rel="icon" type="image/png" href="icon/36.png" />
+		<link rel="icon" sizes="36x36" href="icon/36.png" />
+		<link rel="icon" sizes="48x48" href="icon/48.png" />
+		<link rel="icon" sizes="96x96" href="icon/96.png" />
+		<link rel="icon" sizes="192x192" href="icon/192.png" />
+		<script defer src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+		<script defer src="index.js"></script>
+		<script>
+			if (location.hostname !== 'localhost' && location.protocol === 'http:') {
+				location.href = location.href.replace('http:', 'https:')
+			}
+		</script>
+	</head>
+	<style>
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
 		}
-	</script>
-</head>
-<style>
-	*,
-	*::before,
-	*::after {
-		box-sizing: border-box;
-	}
 
-	body {
-		--reflector-size: 130px;
-		margin: 0;
-		color: #ffffff;
-		background-color: #000000;
-		overflow: hidden;
-		width: 100vw;
-		height: 100vh;
-		touch-action: none;
-		user-select: none;
-	}
-
-	* {
-		font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-	}
-
-	@keyframes fade-in {
-		100% {
-			opacity: 1;
+		body {
+			--reflector-size: 130px;
+			margin: 0;
+			color: #ffffff;
+			background-color: #000000;
+			overflow: hidden;
+			width: 100vw;
+			height: 100vh;
+			touch-action: none;
+			user-select: none;
 		}
-	}
 
-	.playground {
-		position: fixed;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		opacity: 0;
-		animation: fade-in 0.3s 0.3s forwards;
-		overflow: hidden;
-	}
-
-	.background {
-		--width: 1200px;
-		--height: 1920px;
-		position: absolute;
-		top: calc(50% - var(--height) / 2);
-		left: calc(50% - var(--width) / 2);
-		width: var(--width);
-		height: var(--height);
-	}
-
-	.background::before,
-	.background::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		background-image: url('./background.jpg');
-	}
-
-	.background::before {
-		opacity: 0.5;
-	}
-
-	.background::after {
-		background-image: url('./mask.png');
-		opacity: 0.8;
-	}
-
-	.reflector {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		color: #ffdb76;
-		mix-blend-mode: multiply;
-		filter: drop-shadow(0 0 30px #000000);
-	}
-
-	.reflector-light {
-		transition: transform 0.4s;
-	}
-
-	.reflector.is-flashing .reflector-light {
-		transform: scale(1.2);
-		transition-duration: 0.2s;
-	}
-
-	@keyframes flap {
-		to {
-			transform: scaleX(0.8);
+		* {
+			font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 		}
-	}
 
-	.reflector-light::before {
-		content: '';
-		position: absolute;
-		top: calc(-1 * var(--reflector-size) / 2);
-		left: calc(-1 * var(--reflector-size) / 2);
-		width: var(--reflector-size);
-		height: var(--reflector-size);
-		background-image: url('./butterfly.png');
-		background-size: contain;
-		background-position: center;
-		background-repeat: no-repeat;
-		animation: flap 2s infinite alternate;
-		filter: hue-rotate(var(--hue-rotate, 0deg));
-	}
-
-	.instructions {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		padding: 1em;
-		text-align: center;
-		font-size: 30px;
-		z-index: 1;
-		text-shadow: 0 0 60px #000000;
-		transition-property: opacity, visibility;
-		transition-duration: 0.5s;
-		transition-delay: 1s;
-	}
-
-	@keyframes joystick-pop {
-		100% {
-			transform: scale(0.9);
+		@keyframes fade-in {
+			100% {
+				opacity: 1;
+			}
 		}
-	}
 
-	.joystick {
-		position: absolute;
-		top: calc(-1 * var(--reflector-size) / 2);
-		left: calc(-1 * var(--reflector-size) / 2);
-		z-index: 1;
-		width: var(--reflector-size);
-		height: var(--reflector-size);
-		color: #ffffff;
-		animation: joystick-pop 1s infinite alternate ease;
-		transition-property: opacity, visibility;
-		transition-duration: 0.5s;
-		transition-delay: 1.5s;
-	}
+		.playground {
+			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			opacity: 0;
+			animation: fade-in 0.3s 0.3s forwards;
+			overflow: hidden;
+		}
 
-	.joystick div {
-		--arrow-size: 16px;
-		position: absolute;
-		top: 0;
-		left: calc(50% - var(--arrow-size) / 2);
-		right: calc(50% - var(--arrow-size) / 2);
-		bottom: 50%;
-		transform-origin: 50% 100%;
-	}
+		.background {
+			--width: 2681px;
+			--height: 1440px;
+			position: absolute;
+			top: calc(50% - var(--height) / 2);
+			left: calc(50% - var(--width) / 2);
+			width: var(--width);
+			height: var(--height);
+		}
 
-	.joystick div::before {
-		position: absolute;
-		top: 0;
-		left: 50%;
-		width: var(--arrow-size);
-		height: var(--arrow-size);
-		border-top: 5px solid;
-		border-left: 5px solid;
-		content: '';
-		transform-origin: 0 0;
-		transform: rotate(45deg);
-	}
+		.background::before,
+		.background::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-image: url('./background.jpg');
+		}
 
-	.joystick div:nth-child(2) {
-		transform: rotate(90deg);
-	}
+		.background::before {
+			opacity: 0.5;
+		}
 
-	.joystick div:nth-child(3) {
-		transform: rotate(180deg);
-	}
+		.background::after {
+			background-image: url('./mask.png');
+			opacity: 0.8;
+		}
 
-	.joystick div:nth-child(4) {
-		transform: rotate(270deg);
-	}
+		.reflector {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			color: #ffdb76;
+			mix-blend-mode: multiply;
+			filter: drop-shadow(0 0 30px #000000);
+		}
 
-	.has-interacted .instructions,
-	.has-interacted .joystick {
-		opacity: 0;
-		visibility: hidden;
-	}
-</style>
+		.reflector-light {
+			transition: transform 0.4s;
+		}
 
-<body>
-	<div class="playground js-playground" touch-action="none">
-		<div class="instructions">
-			Hýbejte motýlem<br />tahem prstu<br />po obrazovce
-		</div>
-		<div class="background js-background"></div>
-		<div class="reflector js-reflector">
-			<div class="reflector-light"></div>
-			<div class="joystick">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
+		.reflector.is-flashing .reflector-light {
+			transform: scale(1.2);
+			transition-duration: 0.2s;
+		}
+
+		@keyframes flap {
+			to {
+				transform: scaleX(0.8);
+			}
+		}
+
+		.reflector-light::before {
+			content: '';
+			position: absolute;
+			top: calc(-1 * var(--reflector-size) / 2);
+			left: calc(-1 * var(--reflector-size) / 2);
+			width: var(--reflector-size);
+			height: var(--reflector-size);
+			background-image: url('./butterfly.png');
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			animation: flap 2s infinite alternate;
+			filter: hue-rotate(var(--hue-rotate, 0deg));
+		}
+
+		.instructions {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			padding: 1em;
+			text-align: center;
+			font-size: 30px;
+			z-index: 1;
+			text-shadow: 0 0 60px #000000;
+			transition-property: opacity, visibility;
+			transition-duration: 0.5s;
+			transition-delay: 1s;
+		}
+
+		@keyframes joystick-pop {
+			100% {
+				transform: scale(0.9);
+			}
+		}
+
+		.joystick {
+			position: absolute;
+			top: calc(-1 * var(--reflector-size) / 2);
+			left: calc(-1 * var(--reflector-size) / 2);
+			z-index: 1;
+			width: var(--reflector-size);
+			height: var(--reflector-size);
+			color: #ffffff;
+			animation: joystick-pop 1s infinite alternate ease;
+			transition-property: opacity, visibility;
+			transition-duration: 0.5s;
+			transition-delay: 1.5s;
+		}
+
+		.joystick div {
+			--arrow-size: 16px;
+			position: absolute;
+			top: 0;
+			left: calc(50% - var(--arrow-size) / 2);
+			right: calc(50% - var(--arrow-size) / 2);
+			bottom: 50%;
+			transform-origin: 50% 100%;
+		}
+
+		.joystick div::before {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: var(--arrow-size);
+			height: var(--arrow-size);
+			border-top: 5px solid;
+			border-left: 5px solid;
+			content: '';
+			transform-origin: 0 0;
+			transform: rotate(45deg);
+		}
+
+		.joystick div:nth-child(2) {
+			transform: rotate(90deg);
+		}
+
+		.joystick div:nth-child(3) {
+			transform: rotate(180deg);
+		}
+
+		.joystick div:nth-child(4) {
+			transform: rotate(270deg);
+		}
+
+		.has-interacted .instructions,
+		.has-interacted .joystick {
+			opacity: 0;
+			visibility: hidden;
+		}
+	</style>
+
+	<body>
+		<div class="playground js-playground" touch-action="none">
+			<div class="instructions">
+				Hýbejte motýlem<br />tahem prstu<br />po obrazovce
+			</div>
+			<div class="background js-background"></div>
+			<div class="reflector js-reflector">
+				<div class="reflector-light"></div>
+				<div class="joystick">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-52555251-9"></script>
-	<script>
-		window.dataLayer = window.dataLayer || []
-		function gtag() {
-			dataLayer.push(arguments)
-		}
-		gtag('js', new Date())
-		gtag('config', 'UA-52555251-9')
-	</script>
-</body>
-
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=UA-52555251-9"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || []
+			function gtag() {
+				dataLayer.push(arguments)
+			}
+			gtag('js', new Date())
+			gtag('config', 'UA-52555251-9')
+		</script>
+	</body>
 </html>
