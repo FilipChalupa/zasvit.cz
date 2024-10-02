@@ -1,8 +1,8 @@
 ;(function() {
 	let webSocket: WebSocket
 	const backgroundSize = {
-		width: 2681,
-		height: 1440,
+		width: 2048,
+		height: 1536,
 	}
 	const position = { x: 600, y: 1560 }
 	const direction = { x: 0, y: -1 }
