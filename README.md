@@ -1,8 +1,8 @@
 # Zasviť: interactive videomapping pause
 
-- [Guest view](https://rudolfinum-2023.onrender.com/)
-- [Projection view](https://rudolfinum-2023.onrender.com/screen.html)
-- [Admin view](https://rudolfinum-2023.onrender.com/config.html)
+- [Guest view](https://betlemska-kaple-2024.onrender.com/)
+- [Projection view](https://betlemska-kaple-2024.onrender.com/screen.html)
+- [Admin view](https://betlemska-kaple-2024.onrender.com/config.html)
 
 ## Development
 
